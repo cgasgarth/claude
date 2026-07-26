@@ -1,0 +1,183 @@
+# Codex-in-Claude Setup
+
+This machine uses Claude Code as a local UI bridged to the user's OpenAI Codex/ChatGPT subscription through clodex.
+
+## Installed package
+
+- Package identity: `@bman654/clodex`
+- Version: `2.1.3`
+- Source fork: `https://github.com/cgasgarth/clodex`
+- Installed revision: `340a45c8097c0130b114e9db725dda77d9728f81`
+- Fork `main`: `340a45c8097c0130b114e9db725dda77d9728f81`
+- Upstream PR branch: `experimental/native-codex-compaction` at the same revision
+- Native-compaction PR: `https://github.com/cgasgarth/clodex/pull/1` (merged)
+- Upstream contribution PR: `https://github.com/bman654/clodex/pull/53`
+- Executable: `/Users/cgas/.nvm/versions/node/v26.3.0/bin/clodex`
+- Claude Code: `2.1.220`
+- Claude executable: `/Users/cgas/.local/bin/claude`
+- clodex state: `~/.clodex/`
+- OpenAI provider: `openai-oauth` (ChatGPT/Codex-plan OAuth)
+
+The global package is built from the upstream-PR revision in the fork rather
+than installed from the public npm release. The fork's `main`, the PR branch,
+and the installed source revision are aligned. The package still reports
+`2.1.3` because the fork does not change the upstream package version.
+
+## Launch behavior
+
+The `claude` alias in `~/.zshrc` is:
+
+```sh
+export CLODEX_OPENAI_COMPACTION=1
+export CLODEX_OPENAI_COMPACT_THRESHOLD=278000
+alias claude='clodex claude --endpoint'
+```
+
+Use `claude` from a new shell. It launches clodex endpoint mode. Clodex's saved
+route selects OpenAI, while Claude's own settings select Sol at medium effort.
+
+## Models
+
+Only these clodex favorites and aliases are configured:
+
+- `sol` → `gpt-5.6-sol` (default)
+- `luna` → `gpt-5.6-luna`
+
+Effective launch behavior and Claude settings are:
+
+- Default model in `~/.claude/settings.json`: `sol`
+- Default reasoning effort in `~/.claude/settings.json`: `medium`
+- The shell alias does not override the model or effort
+- Permissions: `bypassPermissions` with dangerous-mode confirmation skipped
+- Automatic Claude Code updates: disabled with `DISABLE_AUTOUPDATER=1`
+
+The Claude `/model` picker was patched to show only `sol` and `luna`. Both were verified with successful test responses.
+
+## Native OpenAI/Codex compaction
+
+The fork adds native OpenAI/Codex compaction for ChatGPT/Codex OAuth Responses
+sessions. This machine explicitly sets:
+
+- Native compaction opt-in: `CLODEX_OPENAI_COMPACTION=1`.
+- Native compaction trigger: `278000` input tokens through
+  `CLODEX_OPENAI_COMPACT_THRESHOLD`.
+- Advertised Claude safety window: `400000` tokens for both Sol and Luna.
+- OpenAI 1M model mode: not enabled.
+
+The upstream feature is experimental and off by default. This machine opts in
+through `~/.zshrc`. The 400K value is failure/overshoot headroom, not the normal
+operating target. The active OpenAI chain should compact at 278K. Without the
+explicit threshold override, an opted-in session compacts at 90% of the
+advertised context window.
+
+The normal Sol path uses the active Responses WebSocket head and sends only the
+new delta, `previous_response_id`, and a compaction trigger. OpenAI returns its
+opaque native compaction item, and clodex starts a fresh canonical Responses
+chain from that item. Later turns return to delta-only continuation.
+
+Claude portable-summary turns, including `/compact`, remain on the normal
+unmodified path. Native compaction can occur on a later ordinary turn after the
+threshold is reached.
+
+`POST /responses/compact` is retained only as recovery when the live head is
+unavailable or expired. Claude Code may still perform its own local transcript
+rewrite; clodex reconnects that rewrite to the native compacted state only when
+the portable summary's SHA-256 anchor matches exactly.
+
+Both native transports have a 60-second budget. Process-local checkpoints
+expire after 30 minutes and remain capped at 8 per session partition / 32
+globally. Superseded checkpoints are discarded rather than allowed to restore
+stale state.
+
+Native compaction can be disabled for troubleshooting:
+
+```sh
+CLODEX_OPENAI_COMPACTION=0 claude
+```
+
+Detailed architecture and failure behavior are in the fork at
+`docs/native-codex-compaction.md`.
+
+## Local clodex patches
+
+Several small machine-specific compatibility patches are reapplied to the
+fork-built clodex `2.1.3` bundle and the Claude Code binary:
+
+1. In the installed clodex bundle, endpoint launch removes any inherited
+   `ANTHROPIC_API_KEY` and passes the local gateway credential as
+   `ANTHROPIC_AUTH_TOKEN`. This prevents Claude Code from repeatedly asking
+   whether to use a custom API key while preserving gateway authentication.
+2. In the installed clodex model seed, Sol and Luna advertise a 400K safety
+   window. The clodex favorites and aliases restrict the normal switch surface
+   to those two models; provider-cache metadata for other models may still
+   exist.
+3. In the patched Claude Code binary, startup model names are normalized to the
+   aliases `sol`/`luna`, preventing a duplicate canonical `gpt-5.6-sol` entry.
+4. The Claude `/model` picker replaces built-in entries rather than appending
+   to them, leaving only `sol` and `luna`.
+5. The Claude Agent/subagent model enum and known-model validator replace the
+   built-in model names, leaving only `sol` and `luna` as permitted overrides.
+
+The clodex bundle edits are under:
+
+`/Users/cgas/.nvm/versions/node/v26.3.0/lib/node_modules/@bman654/clodex/dist/`
+
+The model-picker and agent-model edits are applied to Claude Code `2.1.220` and
+tracked by `~/.clodex/patch-state.json`.
+
+An npm upgrade, clodex reinstall, or Claude Code replacement may overwrite the
+relevant fork build or machine-specific compatibility patches. If the API-key
+prompt returns or built-in models reappear, reinstall the fork, reapply the
+equivalent changes, and rerun:
+
+```sh
+clodex patch --restore
+clodex patch --trace
+```
+
+The pre-native-compaction installed package was backed up outside `PATH` at:
+
+`/Users/cgas/.clodex/install-backups/clodex-2.1.3-pre-native.1eSMjQ/`
+
+To return to the public package instead of the fork:
+
+```sh
+npm install -g @bman654/clodex@2.1.3
+```
+
+## Troubleshooting history
+
+### Native Claude login
+
+Running bare native Claude without clodex attempts Anthropic authentication. An OpenAI/Codex subscription does not satisfy `/login`; use the `claude` alias above instead.
+
+### Repeated API-key prompt
+
+The prompt was caused by clodex injecting a local gateway credential. Choosing “No” caused `Login expired`; choosing “Yes” worked, confirming the gateway credential was required. Passing it as `ANTHROPIC_AUTH_TOKEN` removed the prompt and retained working authentication.
+
+### Context-window failure
+
+A one-line prompt produced a `Prompt is too long` error because Claude Code auto-loaded a bundled `claude-api` skill of approximately 616k characters. The prompt itself was only 69 characters. Running with `--disable-slash-commands` avoided the oversized skill injection, identifying bundled skill loading as the trigger rather than a corrupted transcript or duplicated Claude install.
+
+### Existing sessions and compaction flags
+
+Environment and installed-code changes only apply to newly launched processes.
+One session started before native compaction was configured used Claude's own
+auto-compaction at `371904` tokens instead of the desired 278K native trigger.
+After exiting and resuming through the `claude` alias, both the clodex parent and
+Claude child inherited `CLODEX_OPENAI_COMPACTION=1` and
+`CLODEX_OPENAI_COMPACT_THRESHOLD=278000`.
+
+If a resumed session is incorrectly reported as a running background agent,
+inspect `claude agents --json --all`. A killed background session can leave a
+stale registry entry whose PID is later reused by a Claude spare worker. Verify
+the process identity before clearing any stale session record; the transcript
+JSONL is separate and must not be deleted.
+
+### Install cleanup
+
+The duplicate npm-global Claude installation was removed. CC Switch was uninstalled; its app and local data were moved to:
+
+`/Users/cgas/.Trash/CC-Switch-uninstall-2026-07-25/`
+
+The remaining Claude installation is the native binary at `~/.local/bin/claude`, launched through clodex by the shell alias.

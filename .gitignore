@@ -1,0 +1,53 @@
+# Default deny: Claude's home directory is mostly runtime state.
+*
+
+# Repository metadata and documentation.
+!.gitignore
+!README.md
+!claude.md
+!CLAUDE.md
+!CODEX_IN_CLAUDE.md
+
+# Durable user settings.
+!settings.json
+!settings.local.json
+!.mcp.json
+!mcp.json
+
+# User-authored extensions, if present now or added later.
+!skills/
+!skills/**
+!agents/
+!agents/**
+!commands/
+!commands/**
+!hooks/
+!hooks/**
+!mcp/
+!mcp/**
+!mcps/
+!mcps/**
+
+# Keep plugin selections and marketplace declarations, not downloaded code,
+# caches, usage data, or marketplace clones.
+!plugins/
+plugins/*
+!plugins/installed_plugins.json
+!plugins/known_marketplaces.json
+
+# Never commit secrets or generated state inside an allowed directory.
+**/.env
+**/.env.*
+**/*credential*
+**/*credentials*
+**/*secret*
+**/*token*
+**/*.key
+**/*.pem
+**/*.p12
+**/*.log
+**/cache/
+**/logs/
+**/sessions/
+**/projects/
+**/history.jsonl
