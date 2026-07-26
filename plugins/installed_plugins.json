@@ -4,12 +4,30 @@
     "rust-analyzer-lsp@claude-plugins-official": [
       {
         "scope": "project",
+        "projectPath": "/Users/cgas/Documents/RustTable/RustTable",
         "installPath": "/Users/cgas/.claude/plugins/cache/claude-plugins-official/rust-analyzer-lsp/1.0.0",
         "version": "1.0.0",
         "installedAt": "2026-07-26T19:12:02.345Z",
         "lastUpdated": "2026-07-26T19:12:02.345Z",
-        "gitCommitSha": "3a5524044010495c5dff41a929abdbe7d319607b",
-        "projectPath": "/Users/cgas/Documents/RustTable/RustTable"
+        "gitCommitSha": "3a5524044010495c5dff41a929abdbe7d319607b"
+      },
+      {
+        "scope": "user",
+        "installPath": "/Users/cgas/.claude/plugins/cache/claude-plugins-official/rust-analyzer-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-07-26T19:31:36.988Z",
+        "lastUpdated": "2026-07-26T19:31:36.988Z",
+        "gitCommitSha": "6e51ac4a081ee75c725d171927f53250e8740aab"
+      }
+    ],
+    "typescript-lsp@claude-plugins-official": [
+      {
+        "scope": "user",
+        "installPath": "/Users/cgas/.claude/plugins/cache/claude-plugins-official/typescript-lsp/1.0.0",
+        "version": "1.0.0",
+        "installedAt": "2026-07-26T19:33:24.151Z",
+        "lastUpdated": "2026-07-26T19:33:24.151Z",
+        "gitCommitSha": "6e51ac4a081ee75c725d171927f53250e8740aab"
       }
     ]
   }
