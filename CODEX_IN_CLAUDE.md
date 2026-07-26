@@ -181,3 +181,30 @@ The duplicate npm-global Claude installation was removed. CC Switch was uninstal
 `/Users/cgas/.Trash/CC-Switch-uninstall-2026-07-25/`
 
 The remaining Claude installation is the native binary at `~/.local/bin/claude`, launched through clodex by the shell alias.
+
+## Computer use
+
+Claude Code uses CUA Driver for desktop computer use:
+
+- CUA Driver version: `0.12.6`
+- Signed app: `/Applications/CuaDriver.app`
+- CLI: `~/.local/bin/cua-driver`
+- Claude MCP name: `cua-computer-use`
+- MCP command: `~/.local/bin/cua-driver mcp`
+- Agent skill: `~/.claude/skills/cua-driver`
+- Product telemetry: disabled
+- macOS Accessibility and Screen Recording: granted to CuaDriver
+
+The MCP was verified with a live window-state call that returned both a
+structured accessibility tree and a PNG screenshot. CUA Driver runs its own
+standard action-authorization policy in addition to Claude's permission mode.
+
+Restore the MCP registration with:
+
+```sh
+claude mcp add-json --scope user cua-computer-use \
+  '{"args":["mcp"],"command":"'"$HOME"'/.local/bin/cua-driver"}'
+```
+
+Peekaboo was removed from Claude's MCP configuration and uninstalled from
+Homebrew after CUA Driver passed its smoke test.
