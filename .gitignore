@@ -8,6 +8,8 @@
 !CLAUDE.md
 !CODEX_IN_CLAUDE.md
 !MCP_SETUP.md
+!bin/
+!bin/**
 
 # Durable user settings.
 !settings.json

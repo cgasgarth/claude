@@ -30,11 +30,13 @@ The `claude` alias in `~/.zshrc` is:
 ```sh
 export CLODEX_OPENAI_COMPACTION=1
 export CLODEX_OPENAI_COMPACT_THRESHOLD=278000
-alias claude='clodex claude --endpoint'
+alias claude='$HOME/.claude/bin/launch-clodex'
 ```
 
-Use `claude` from a new shell. It launches clodex endpoint mode. Clodex's saved
-route selects OpenAI, while Claude's own settings select Sol at medium effort.
+Use `claude` from a new shell. The tracked launcher reads Claude's `model`
+setting, resolves `sol` or `luna` through Clodex's alias table, and launches
+endpoint mode without a provider/model picker. Claude's own settings remain the
+source of truth for Sol at medium effort; the shell alias contains no model.
 
 ## Models
 

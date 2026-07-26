@@ -1,0 +1,37 @@
+#!/bin/zsh
+set -euo pipefail
+
+claude_settings="${HOME}/.claude/settings.json"
+clodex_settings="${HOME}/.clodex/config.json"
+
+if [[ ! -r "$claude_settings" || ! -r "$clodex_settings" ]]; then
+  print -u2 "Claude or Clodex settings are missing."
+  exit 1
+fi
+
+model_setting="$(jq -r '.model // empty' "$claude_settings")"
+
+route="$(
+  jq -r --arg model "$model_setting" '
+    ([.modelAliases[]? | select(.name == $model)][0]) as $alias
+    | if $alias then
+        [$alias.providerId, $alias.modelId] | @tsv
+      elif ($model | length) > 0 and .lastProvider then
+        [.lastProvider, $model] | @tsv
+      elif .lastProvider and .lastModel then
+        [.lastProvider, .lastModel] | @tsv
+      else
+        empty
+      end
+  ' "$clodex_settings"
+)"
+
+if [[ -z "$route" ]]; then
+  print -u2 "Could not resolve Claude's default model through Clodex."
+  exit 1
+fi
+
+provider="${route%%$'\t'*}"
+model="${route#*$'\t'}"
+
+exec clodex claude --endpoint --provider "$provider" --model "$model" "$@"
