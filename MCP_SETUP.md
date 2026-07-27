@@ -1,35 +1,33 @@
 # MCP setup
 
-## CUA Driver
+## Native computer use
 
-Install or update CUA Driver using its signed macOS application installer:
+Claude Code 2.1.220 includes a built-in MCP server named `computer-use`.
+The installed `cgasgarth/clodex` fork exposes it to Sol and Luna and enables it
+across projects when this user setting is present:
 
-```sh
-/bin/bash -c "$(curl -fsSL https://cua.ai/driver/install.sh)"
-cua-driver telemetry disable
-open -n -g -a CuaDriver --args serve
-cua-driver permissions grant
+```json
+{
+  "env": {
+    "CLODEX_NATIVE_COMPUTER_USE": "1"
+  }
+}
 ```
 
-Register it globally with Claude Code:
+After a Claude update or Clodex transform update, apply the binary patch:
 
 ```sh
-claude mcp add-json --scope user cua-computer-use \
-  '{"args":["mcp"],"command":"'"$HOME"'/.local/bin/cua-driver"}'
+clodex patch
 ```
 
-Install the matching agent skill:
+Verify from a newly launched interactive Claude session:
 
-```sh
-mkdir -p ~/.claude/skills
-cua-driver skills install
+```text
+/mcp
 ```
 
-Verify:
+`computer-use` should report `connected · 24 tools`. Native computer use is
+macOS-only, does not run under `claude -p`, asks for app access per session, and
+permits only one Claude computer-use session at a time.
 
-```sh
-cua-driver doctor
-cua-driver permissions status
-claude mcp get cua-computer-use
-claude mcp list
-```
+No third-party computer-use MCP or skill is required.

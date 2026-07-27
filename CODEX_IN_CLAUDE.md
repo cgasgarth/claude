@@ -186,27 +186,34 @@ The remaining Claude installation is the native binary at `~/.local/bin/claude`,
 
 ## Computer use
 
-Claude Code uses CUA Driver for desktop computer use:
+Sol and Luna use Claude Code's bundled native `computer-use` MCP. This is the
+same CLI computer-use implementation exposed to eligible Anthropic models, not
+a third-party CUA compatibility server.
 
-- CUA Driver version: `0.12.6`
-- Signed app: `/Applications/CuaDriver.app`
-- CLI: `~/.local/bin/cua-driver`
-- Claude MCP name: `cua-computer-use`
-- MCP command: `~/.local/bin/cua-driver mcp`
-- Agent skill: `~/.claude/skills/cua-driver`
-- Product telemetry: disabled
-- macOS Accessibility and Screen Recording: granted to CuaDriver
+The installed build comes from `cgasgarth/clodex` `main`. PR #4 added two
+Claude binary patch sites:
 
-The MCP was verified with a live window-state call that returned both a
-structured accessibility tree and a PNG screenshot. CUA Driver runs its own
-standard action-authorization policy in addition to Claude's permission mode.
+- an explicit eligibility override for the bundled server, while preserving
+  Claude's HIPAA, macOS, and interactive-session guards;
+- global default enablement, avoiding the upstream per-project `/mcp` setup.
 
-Restore the MCP registration with:
+PR #5 versioned Clodex's patch digest so transform updates force one clean
+restore-and-repatch instead of being mistaken for an already-current binary.
+The feature is enabled by `CLODEX_NATIVE_COMPUTER_USE=1` in
+`~/.claude/settings.json`. Removing that setting restores upstream behavior.
 
-```sh
-claude mcp add-json --scope user cua-computer-use \
-  '{"args":["mcp"],"command":"'"$HOME"'/.local/bin/cua-driver"}'
-```
+Validation on Claude Code 2.1.220:
 
-Peekaboo was removed from Claude's MCP configuration and uninstalled from
-Homebrew after CUA Driver passed its smoke test.
+- `/mcp` reports `computer-use · connected · 24 tools` in a fresh project;
+- Sol completed native app approval, screenshot, app launch, and mouse movement;
+- Luna read Calculator's display/keypad from a screenshot and moved the pointer;
+- global MCPs were suppressed during both tests, so CUA Driver could not satisfy
+  the calls.
+
+Native computer use is macOS-only and interactive-only (`-p` is unsupported).
+It retains Claude's per-app approval dialog, machine-wide one-session lock,
+screen filtering, Terminal exclusion, and global Escape abort behavior. New
+settings and binary patches apply only to newly launched Claude processes.
+
+CUA Driver and Peekaboo were removed after the bundled native server passed the
+Sol and Luna smoke tests.
