@@ -54,24 +54,17 @@ The Claude `/model` picker was patched to show only `sol` and `luna`. Both were 
 
 ## Agent and workflow prompt-cache affinity
 
-The fork retains multiple Responses WebSocket conversation heads per Claude
-session and selects exact history continuations before sending only the new
-delta with `previous_response_id`. This supports the parent, direct subagents,
-and dynamic Workflow agents without merging their histories.
-
-When a subagent reaches a terminal text response with no pending tool call, its
-physical WebSocket may be recycled for a different subagent with the same
-session partition and prompt shape. The new agent sends its own full independent
-history without the prior agent's `previous_response_id`; it does not inherit
-the earlier agent's investigation, reasoning, tool results, or conclusions.
-Parent heads, active tool loops, and same-agent lineages are not recycled.
-
-Socket recycling does not reduce workflow concurrency. Every concurrently
-running agent still receives an independent socket; completed-agent sockets are
-reused by later waves instead of accumulating for the lifetime of the session.
-This was validated with direct subagent waves and with two separate Workflows
-across a Claude process exit/resume: all agents completed, the second Workflow
-reused the first Workflow's terminal sockets, and no agent history leaked.
+- **Continuation:** exact history matches send only the new delta with
+  `previous_response_id`.
+- **Isolation:** parent, direct-subagent, and Workflow histories remain separate.
+- **Recycling:** a terminal subagent socket may serve a different agent only
+  when the session partition and prompt shape match.
+- **Protected heads:** parent, active tool-loop, and same-agent heads are never
+  recycled.
+- **Concurrency:** unchanged; every simultaneously active agent has its own
+  socket.
+- **Validated:** direct-agent waves and two separate Workflows across a process
+  exit/resume completed without history leakage.
 
 ## Native OpenAI/Codex compaction
 
