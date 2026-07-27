@@ -5,6 +5,9 @@
     "CLODEX_NATIVE_COMPUTER_USE": "1"
   },
   "permissions": {
+    "allow": [
+      "mcp__computer-use__*"
+    ],
     "defaultMode": "bypassPermissions",
     "skipDangerousModePermissionPrompt": true
   },

@@ -215,5 +215,11 @@ It retains Claude's per-app approval dialog, machine-wide one-session lock,
 screen filtering, Terminal exclusion, and global Escape abort behavior. New
 settings and binary patches apply only to newly launched Claude processes.
 
+Claude's ordinary MCP permission layer is pre-allowed with
+`mcp__computer-use__*`. The separate per-session app allowlist cannot be
+disabled in `settings.json`; root instructions tell Claude to request every
+anticipated app and any clipboard/system-key grants in one consolidated
+`request_access` call.
+
 CUA Driver and Peekaboo were removed after the bundled native server passed the
 Sol and Luna smoke tests.

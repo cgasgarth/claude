@@ -16,3 +16,9 @@
 - Prefer `rg` for searching files and text.
 - Use focused CLI tools when appropriate, including `ast-grep` (`sg`), `git`, `gh`, `bun`, and `bunx`.
 - When several independent checks are needed, batch them where practical rather than running them serially.
+
+## Computer Use
+
+- Before using computer control, identify every application likely to be needed and request them together in one `request_access` call.
+- Include any needed `clipboardRead`, `clipboardWrite`, and `systemKeyCombos` grants in that initial call.
+- Reuse the session allowlist and call `request_access` again only when the task genuinely expands to another application.
