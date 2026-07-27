@@ -1,6 +1,8 @@
 #!/bin/zsh
 set -euo pipefail
 
+export CLODEX_WORKFLOW_STALL_TIMEOUT_MS="${CLODEX_WORKFLOW_STALL_TIMEOUT_MS:-600000}"
+
 claude_settings="${HOME}/.claude/settings.json"
 clodex_settings="${HOME}/.clodex/config.json"
 
@@ -34,4 +36,7 @@ fi
 provider="${route%%$'\t'*}"
 model="${route#*$'\t'}"
 
-exec clodex claude --endpoint --provider "$provider" --model "$model" "$@"
+# Clodex needs the canonical model id to select the upstream route, while
+# Claude should receive the saved short alias as its first-class model name.
+exec clodex claude --endpoint --provider "$provider" --model "$model" -- \
+  --model "$model_setting" "$@"

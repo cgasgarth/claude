@@ -29,7 +29,7 @@ The `claude` alias in `~/.zshrc` is:
 
 ```sh
 export CLODEX_OPENAI_COMPACTION=1
-export CLODEX_OPENAI_COMPACT_THRESHOLD=278000
+export CLODEX_OPENAI_COMPACT_THRESHOLD=244800
 alias claude='$HOME/.claude/bin/launch-clodex'
 ```
 
@@ -61,16 +61,16 @@ The fork adds native OpenAI/Codex compaction for ChatGPT/Codex OAuth Responses
 sessions. This machine explicitly sets:
 
 - Native compaction opt-in: `CLODEX_OPENAI_COMPACTION=1`.
-- Native compaction trigger: `278000` input tokens through
-  `CLODEX_OPENAI_COMPACT_THRESHOLD`.
-- Advertised Claude safety window: `400000` tokens for both Sol and Luna.
+- Native compaction trigger: `244800` tokens through
+  `CLODEX_OPENAI_COMPACT_THRESHOLD`, matching 90% of the provider model's 272K
+  input window.
+- Advertised provider window: `272000` tokens for both Sol and Luna.
 - OpenAI 1M model mode: not enabled.
 
 The upstream feature is experimental and off by default. This machine opts in
-through `~/.zshrc`. The 400K value is failure/overshoot headroom, not the normal
-operating target. The active OpenAI chain should compact at 278K. Without the
-explicit threshold override, an opted-in session compacts at 90% of the
-advertised context window.
+through `~/.zshrc` and pins the threshold explicitly. Native compaction matches
+Codex's fallback model policy: a 272K raw window, a 258.4K effective window
+(95%), and a 244.8K auto-compaction threshold (90%).
 
 The normal Sol path uses the active Responses WebSocket head and sends only the
 new delta, `previous_response_id`, and a compaction trigger. OpenAI returns its
@@ -165,10 +165,10 @@ A one-line prompt produced a `Prompt is too long` error because Claude Code auto
 
 Environment and installed-code changes only apply to newly launched processes.
 One session started before native compaction was configured used Claude's own
-auto-compaction at `371904` tokens instead of the desired 278K native trigger.
+auto-compaction at `371904` tokens instead of the desired 244.8K native trigger.
 After exiting and resuming through the `claude` alias, both the clodex parent and
 Claude child inherited `CLODEX_OPENAI_COMPACTION=1` and
-`CLODEX_OPENAI_COMPACT_THRESHOLD=278000`.
+`CLODEX_OPENAI_COMPACT_THRESHOLD=244800`.
 
 If a resumed session is incorrectly reported as a running background agent,
 inspect `claude agents --json --all`. A killed background session can leave a
