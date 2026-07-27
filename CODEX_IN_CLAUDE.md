@@ -22,7 +22,7 @@ updating it; already-running Clodex processes must restart to load new code.
 
 ```sh
 export CLODEX_OPENAI_COMPACTION=1
-export CLODEX_OPENAI_COMPACT_THRESHOLD=900000
+export CLODEX_OPENAI_COMPACT_THRESHOLD=244800
 alias claude='$HOME/.claude/bin/launch-clodex'
 ```
 
@@ -57,8 +57,8 @@ exit/resume, with no history leakage.
 
 - Enabled through `CLODEX_OPENAI_COMPACTION=1`
 - Sol/Luna advertise a 1M context window
-- Trigger: 900K tokens (Clodex's default 90% policy)
-- Native compaction runs before Claude's terminal context boundary
+- Native OpenAI compaction triggers at 244,800 tokens
+- The larger Claude window is a safety ceiling for oversized preserved segments
 - Normal path: compact the active Responses WebSocket chain, then resume
   delta-only continuation from OpenAI's opaque compact item
 - Recovery: `POST /responses/compact` when the live head is unavailable
