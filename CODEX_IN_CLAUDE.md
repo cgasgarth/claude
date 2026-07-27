@@ -5,12 +5,9 @@ This machine uses Claude Code as a local UI bridged to the user's OpenAI Codex/C
 ## Installed package
 
 - Package identity: `@bman654/clodex`
-- Version: `2.1.3`
+- Version: `2.1.4`
 - Source fork: `https://github.com/cgasgarth/clodex`
-- Installed revision: `340a45c8097c0130b114e9db725dda77d9728f81`
-- Fork `main`: `340a45c8097c0130b114e9db725dda77d9728f81`
-- Upstream PR branch: `experimental/native-codex-compaction` at the same revision
-- Native-compaction PR: `https://github.com/cgasgarth/clodex/pull/1` (merged)
+- Installed source: fork `main`
 - Upstream contribution PR: `https://github.com/bman654/clodex/pull/53`
 - Executable: `/Users/cgas/.nvm/versions/node/v26.3.0/bin/clodex`
 - Claude Code: `2.1.220`
@@ -18,10 +15,10 @@ This machine uses Claude Code as a local UI bridged to the user's OpenAI Codex/C
 - clodex state: `~/.clodex/`
 - OpenAI provider: `openai-oauth` (ChatGPT/Codex-plan OAuth)
 
-The global package is built from the upstream-PR revision in the fork rather
-than installed from the public npm release. The fork's `main`, the PR branch,
-and the installed source revision are aligned. The package still reports
-`2.1.3` because the fork does not change the upstream package version.
+The global package is linked to `/Users/cgas/Documents/Projects/clodex` and
+built from the fork's `main`, rather than installed from the public npm release.
+New Claude launches use the latest locally built fork; already-running Clodex
+processes retain their in-memory code until restarted.
 
 ## Launch behavior
 
@@ -54,6 +51,27 @@ Effective launch behavior and Claude settings are:
 - Automatic Claude Code updates: disabled with `DISABLE_AUTOUPDATER=1`
 
 The Claude `/model` picker was patched to show only `sol` and `luna`. Both were verified with successful test responses.
+
+## Agent and workflow prompt-cache affinity
+
+The fork retains multiple Responses WebSocket conversation heads per Claude
+session and selects exact history continuations before sending only the new
+delta with `previous_response_id`. This supports the parent, direct subagents,
+and dynamic Workflow agents without merging their histories.
+
+When a subagent reaches a terminal text response with no pending tool call, its
+physical WebSocket may be recycled for a different subagent with the same
+session partition and prompt shape. The new agent sends its own full independent
+history without the prior agent's `previous_response_id`; it does not inherit
+the earlier agent's investigation, reasoning, tool results, or conclusions.
+Parent heads, active tool loops, and same-agent lineages are not recycled.
+
+Socket recycling does not reduce workflow concurrency. Every concurrently
+running agent still receives an independent socket; completed-agent sockets are
+reused by later waves instead of accumulating for the lifetime of the session.
+This was validated with direct subagent waves and with two separate Workflows
+across a Claude process exit/resume: all agents completed, the second Workflow
+reused the first Workflow's terminal sockets, and no agent history leaked.
 
 ## Native OpenAI/Codex compaction
 
@@ -103,7 +121,7 @@ Detailed architecture and failure behavior are in the fork at
 ## Local clodex patches
 
 Several small machine-specific compatibility patches are reapplied to the
-fork-built clodex `2.1.3` bundle and the Claude Code binary:
+fork-built clodex `2.1.4` bundle and the Claude Code binary:
 
 1. In the installed clodex bundle, endpoint launch removes any inherited
    `ANTHROPIC_API_KEY` and passes the local gateway credential as
@@ -144,7 +162,7 @@ The pre-native-compaction installed package was backed up outside `PATH` at:
 To return to the public package instead of the fork:
 
 ```sh
-npm install -g @bman654/clodex@2.1.3
+npm install -g @bman654/clodex@2.1.4
 ```
 
 ## Troubleshooting history
