@@ -1,3 +1,6 @@
 {
-  "spinnerTipsEnabled": false
+  "spinnerTipsEnabled": false,
+  "env": {
+    "CHROME_DEVTOOLS_AXI_AUTO_CONNECT": "1"
+  }
 }

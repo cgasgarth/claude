@@ -1,38 +1,31 @@
 # Codex in Claude
 
-Claude Code is the UI; Clodex routes `sol` and `luna` to the user's
-OpenAI/ChatGPT subscription.
+Claude Code is the UI. The `cgasgarth/clodex` fork routes `sol` and `luna`
+through the user's OpenAI/ChatGPT subscription.
 
-## Current installation
+## Installation
 
-- Clodex: `@bman654/clodex` 2.1.4
-- Fork: `https://github.com/cgasgarth/clodex` (`main`)
+- Clodex: `@bman654/clodex` 2.1.5 from
+  `https://github.com/cgasgarth/clodex` (`main`)
 - Checkout: `/Users/cgas/Documents/Projects/clodex`
-- Clodex executable: `~/.nvm/versions/node/v26.3.0/bin/clodex`
+- Installed CLI: `~/.nvm/versions/node/v26.3.0/bin/clodex`
 - Claude Code: 2.1.220 at `~/.local/bin/claude`
-- State: `~/.clodex/`
+- Runtime state: `~/.clodex/`
 - Provider: `openai-oauth`
 
-The global Clodex package links to the local fork checkout. Rebuild after
-updating it; already-running Clodex processes must restart to load new code.
+The global package is a packed copy of `main`, not a link to the checkout.
+Checkout edits have no effect until the package is rebuilt and reinstalled.
 
 ## Launch and defaults
 
-`~/.zshrc`:
-
-```sh
-export CLODEX_OPENAI_COMPACTION=1
-export CLODEX_OPENAI_COMPACT_THRESHOLD=244800
-alias claude='$HOME/.claude/bin/launch-clodex'
-```
-
-The launcher resolves Claude's saved alias and starts Clodex endpoint mode
-without a provider/model picker.
+`claude` aliases to `~/.claude/bin/launch-clodex`. The launcher reads the
+saved short model name and attaches Claude to the shared endpoint daemon
+without opening a provider/model picker.
 
 - Default: `sol`, medium effort
 - Alternate: `luna`
-- Only `sol` and `luna` appear in `/model` and subagent overrides
-- Permissions: `bypassPermissions`; dangerous-mode confirmation skipped
+- Only `sol` and `luna` appear in model and subagent surfaces
+- Permissions: `bypassPermissions`; confirmation skipped
 - Claude auto-update: disabled
 - Workflow stall timeout: 10 minutes
 
@@ -41,96 +34,107 @@ Aliases:
 - `sol` → `gpt-5.6-sol`
 - `luna` → `gpt-5.6-luna`
 
-## Prompt caching and agents
+## Persistent daemon
 
-- Exact continuations send only the delta plus `previous_response_id`.
-- Parent, direct-subagent, and Workflow histories remain isolated.
-- A completed subagent socket may be reused by a different agent only when its
-  session partition and prompt shape match.
-- Parent, active tool-loop, and same-agent heads are never recycled.
-- Parallelism is unchanged: every active agent has its own socket.
+The macOS LaunchAgent owns one shared endpoint, proxy, OpenAI WebSocket pools,
+compaction checkpoints, metrics, and session diagnostics.
 
-Validated with direct-agent waves and two separate Workflows across a Claude
-exit/resume, with no history leakage.
+- Endpoint: `127.0.0.1:17647`
+- Selective proxy: `127.0.0.1:17646`
+- Dashboard: `clodex`
+- Start without dashboard: `clodex start`
+- Stop: `clodex stop`
+- Inspect: `clodex daemon status` and `clodex daemon logs`
+
+Main sessions, subagents, workflows, and background sessions inherit the same
+daemon and account ticket. Up to five OpenAI accounts may be stored; switching
+is manual and affects new launches only.
+
+Endpoint mode uses one stable, remembered loopback API key. The per-launch
+account ticket travels separately in `x-clodex-launch-ticket`, preventing the
+changing custom-API-key prompt while preserving account pinning.
+
+## Caching and agents
+
+- Exact continuations send only the delta with `previous_response_id`.
+- Parent, subagent, and workflow histories use isolated partitions.
+- Active agents retain independent sockets; completed physical sockets may be
+  recycled without reusing logical agent history.
+- Live heads expire after 30 minutes idle or 55 minutes total.
+- Closing and quickly resuming Claude reuses a matching live head.
+- Durable native-compaction checkpoints restore matching parent, subagent, and
+  workflow histories after daemon restart.
 
 ## Native OpenAI compaction
 
-- Enabled through `CLODEX_OPENAI_COMPACTION=1`
-- Sol/Luna advertise a 1M context window
-- Native OpenAI compaction triggers at 244,800 tokens
-- The larger Claude window is a safety ceiling for oversized preserved segments
-- Normal path: compact the active Responses WebSocket chain, then resume
-  delta-only continuation from OpenAI's opaque compact item
-- Recovery: `POST /responses/compact` when the live head is unavailable
-- Claude `/compact`: remains Claude's portable-summary path
-- Portable summaries reconnect only when their summary anchor matches
-- Timeout: 60 seconds
-- Checkpoints: 30-minute TTL; 8 per session partition, 32 globally
+- Enabled with `CLODEX_OPENAI_COMPACTION=1`
+- Effective daemon trigger: 278,000 tokens
+- Sol/Luna provider ceiling: 1M context
+- Retained user-message budget during rebase: approximately 64K tokens
+- Process-local checkpoints: 30 minutes
+- Durable checkpoints: seven days
+- Capacity: 16 per session partition, 64 globally
 
-Disable for troubleshooting:
+Clodex owns automatic model-facing compaction. Claude's automatic local
+compactor and blocking guard are disabled for native-compaction routes.
 
-```sh
-CLODEX_OPENAI_COMPACTION=0 claude
-```
+Manual `/compact` also invokes native OpenAI compaction. On success, Clodex
+stores OpenAI's opaque state and returns a synthetic checkpoint marker to
+Claude; it does not run a second full-transcript summary inference. If native
+compaction fails, the ordinary Claude summary request remains the fallback.
 
-Implementation details: `docs/native-codex-compaction.md` in the Clodex fork.
+When no live head exists, Clodex tries standalone `POST /responses/compact`.
+An already-oversized legacy transcript with no native checkpoint may be
+unrecoverable in place; start a new session from a handoff instead of repeatedly
+resuming or compacting it.
 
-## Claude/Clodex compatibility patches
+Details: `docs/native-codex-compaction.md` in the Clodex checkout.
 
-Clodex patches Claude Code at launch and reapplies stale patches when needed:
+## Claude compatibility patches
 
-- Pass gateway auth through `ANTHROPIC_AUTH_TOKEN` and remove inherited
-  `ANTHROPIC_API_KEY`, preventing the custom-key prompt
-- Normalize model names and restrict model/subagent surfaces to `sol`/`luna`
-- Keep Claude's context policy above Clodex's native-compaction trigger
-- Enable bundled native computer use for Sol and Luna
-- Extend Workflow agent stall handling
-- Preserve live Workflow token reporting
+Clodex patches Claude at launch and reapplies stale patches when needed:
+
+- Accept and expose only the configured short aliases
+- Report configured context windows and hand context ownership to Clodex
+- Enable Claude's bundled computer-use MCP for Sol/Luna
+- Extend workflow stall handling and preserve live workflow token reporting
 
 Patch state: `~/.clodex/patch-state.json`.
 
-After a Clodex/Claude replacement:
+After replacing Clodex or Claude:
 
 ```sh
-clodex patch --restore
-clodex patch --trace
-```
-
-To return to the public Clodex package:
-
-```sh
-npm install -g @bman654/clodex@2.1.4
+clodex patch
 ```
 
 ## Computer use
 
-Sol and Luna use Claude Code's bundled `computer-use` MCP, enabled by
-`CLODEX_NATIVE_COMPUTER_USE=1` in `settings.json`.
+Sol and Luna use Claude Code's bundled `computer-use` MCP.
 
 - `/mcp` should show `computer-use · connected · 24 tools`
 - Tools are pre-allowed with `mcp__computer-use__*`
-- macOS and interactive sessions only; `-p` is unsupported
-- Per-app access approval remains mandatory and cannot be disabled in
-  `settings.json`
-- Request all anticipated apps and clipboard/system-key access in one
-  consolidated `request_access` call
+- macOS interactive sessions only; `claude -p` is unsupported
+- Per-app access approval remains mandatory
 
 CUA Driver and Peekaboo are not installed.
 
-## Troubleshooting
+## Updating the fork
 
-- **Anthropic login:** bare native Claude uses Anthropic auth. Launch through
-  the `claude` alias for OpenAI/Clodex.
-- **Custom API-key prompt:** gateway auth regressed to `ANTHROPIC_API_KEY`;
-  repatch Clodex.
-- **Built-in models reappear:** rebuild the fork and rerun the patch commands.
-- **Old behavior after an update:** restart Claude/Clodex; running processes do
-  not reload code or environment.
-- **False background-agent status:** inspect `claude agents --json --all` and
-  verify the PID before clearing stale registry state. Do not delete transcripts.
-- **One-line prompt is too long:** a bundled slash-command skill previously
-  injected roughly 616K characters. `--disable-slash-commands` isolates this
-  failure.
+```sh
+cd /Users/cgas/Documents/Projects/clodex
+git switch main
+git pull --ff-only origin main
+pnpm install --frozen-lockfile
+pnpm build
+npm pack --pack-destination /tmp
+npm install -g /tmp/bman654-clodex-<version>.tgz
+clodex stop
+clodex start
+clodex patch
+```
 
-The duplicate npm-global Claude install and CC Switch were removed. The only
-Claude binary is `~/.local/bin/claude`, launched through Clodex.
+Install the packed archive rather than `npm install -g .`; the latter links the
+global command to the checkout.
+
+The duplicate npm-global Claude install, CC Switch, Peekaboo, and CUA Driver
+were removed. The only Claude binary is `~/.local/bin/claude`.

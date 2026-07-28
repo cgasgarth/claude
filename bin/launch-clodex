@@ -4,39 +4,20 @@ set -euo pipefail
 export CLODEX_WORKFLOW_STALL_TIMEOUT_MS="${CLODEX_WORKFLOW_STALL_TIMEOUT_MS:-600000}"
 
 claude_settings="${HOME}/.claude/settings.json"
-clodex_settings="${HOME}/.clodex/config.json"
 
-if [[ ! -r "$claude_settings" || ! -r "$clodex_settings" ]]; then
-  print -u2 "Claude or Clodex settings are missing."
+if [[ ! -r "$claude_settings" ]]; then
+  print -u2 "Claude settings are missing."
   exit 1
 fi
 
 model_setting="$(jq -r '.model // empty' "$claude_settings")"
 
-route="$(
-  jq -r --arg model "$model_setting" '
-    ([.modelAliases[]? | select(.name == $model)][0]) as $alias
-    | if $alias then
-        [$alias.providerId, $alias.modelId] | @tsv
-      elif ($model | length) > 0 and .lastProvider then
-        [.lastProvider, $model] | @tsv
-      elif .lastProvider and .lastModel then
-        [.lastProvider, .lastModel] | @tsv
-      else
-        empty
-      end
-  ' "$clodex_settings"
-)"
-
-if [[ -z "$route" ]]; then
-  print -u2 "Could not resolve Claude's default model through Clodex."
+if [[ -z "$model_setting" ]]; then
+  print -u2 "Claude's default model is not configured."
   exit 1
 fi
 
-provider="${route%%$'\t'*}"
-model="${route#*$'\t'}"
-
-# Clodex needs the canonical model id to select the upstream route, while
-# Claude should receive the saved short alias as its first-class model name.
-exec clodex claude --endpoint --provider "$provider" --model "$model" -- \
-  --model "$model_setting" "$@"
+# Endpoint mode routes the saved short alias through the persistent Clodex daemon.
+# The daemon owns shared WebSocket/cache/compaction state for the main process,
+# workflows, subagents, and background sessions.
+exec clodex claude --endpoint -- --model "$model_setting" "$@"

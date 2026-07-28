@@ -5,7 +5,7 @@
 - Run `luna` at `medium` reasoning effort for research and exploration.
 - Run `luna` at `xhigh` reasoning effort for straightforward implementations and other well-scoped tasks.
 - Use `sol` for advanced problem solving and UI design work.
-- Always run `sol` subagents at `medium` or `high` reasoning effort when the execution surface supports an effort setting; choose `high` for harder problems that a another agent or reasoning level already attempted but didnt solve.
+- Always run `sol` subagents at `medium` or `high` reasoning effort when the execution surface supports an effort setting; choose `high` for harder problems that another agent or reasoning level already attempted but did not solve.
 - For direct subagent calls that do not expose an effort setting, select the required model and use its inherited reasoning configuration.
 
 ## Working Style
