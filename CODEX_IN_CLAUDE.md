@@ -22,8 +22,8 @@ Checkout edits have no effect until the package is rebuilt and reinstalled.
 saved short model name and attaches Claude to the shared endpoint daemon
 without opening a provider/model picker.
 
-- Default: `sol`, medium effort
-- Alternate: `luna`
+- Default: `luna`, max effort (`CLAUDE_CODE_EFFORT_LEVEL=max`)
+- Alternate: `sol`
 - Only `sol` and `luna` appear in model and subagent surfaces
 - Permissions: `bypassPermissions`; confirmation skipped
 - Claude auto-update: disabled
