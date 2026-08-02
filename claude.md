@@ -17,8 +17,12 @@
 - Use focused CLI tools when appropriate, including `ast-grep` (`sg`), `git`, `gh`, `bun`, and `bunx`.
 - When several independent checks are needed, batch them where practical rather than running them serially.
 
-## Computer Use
+## Engineering Principles
 
-- Before using computer control, identify every application likely to be needed and request them together in one `request_access` call.
-- Include any needed `clipboardRead`, `clipboardWrite`, and `systemKeyCombos` grants in that initial call.
-- Reuse the session allowlist and call `request_access` again only when the task genuinely expands to another application.
+- Do not preserve backward compatibility. Remove obsolete paths instead of adding compatibility layers, fallbacks, or migrations.
+- Choose the simplest implementation that fully meets the current requirements. Avoid speculative abstractions, configuration, and indirection.
+- Grow the system in layers. Start from the smallest version that works end to end, and add each new capability on top of a product that already works. Never trade a working product for unfinished complexity.
+- Keep components modular and concerns clearly separated.
+- Prefer established, well-maintained libraries when they reduce overall complexity or improve reliability. Do not reimplement common functionality without a clear reason.
+- Lean on the dependencies already in the project before writing your own implementation or adding packages. Do not assume a library lacks a capability without checking its documentation and types.
+- Make architectural decisions for the long term. Do not accept a stopgap that only works for now and is meant to be replaced later.
