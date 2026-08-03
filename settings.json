@@ -11,7 +11,10 @@
     "defaultMode": "bypassPermissions",
     "skipDangerousModePermissionPrompt": true
   },
-  "model": "sol",
+  "model": "luna",
+  "attribution": {
+    "commit": ""
+  },
   "skillOverrides": {
     "claude-api": "off"
   },
