@@ -1,6 +1,6 @@
 # Subagent Model Selection
 
-- Use only `sol` or `luna` for subagents. Default to `luna`
+- Use only `sol` or `luna` for subagents. Default to `luna`. Terra can be used on request of the user.
 - Use `luna` for research, exploration, straightforward implementations, and well-scoped tasks.
 - Run `luna` at `medium` reasoning effort for research and exploration.
 - Run `luna` at `max` reasoning effort for straightforward implementations and other well-scoped tasks.
@@ -26,3 +26,5 @@
 - Prefer established, well-maintained libraries when they reduce overall complexity or improve reliability. Do not reimplement common functionality without a clear reason.
 - Lean on the dependencies already in the project before writing your own implementation or adding packages. Do not assume a library lacks a capability without checking its documentation and types.
 - Make architectural decisions for the long term. Do not accept a stopgap that only works for now and is meant to be replaced later.
+
+Always talk in ASD-STE100 Simplified Technical English.

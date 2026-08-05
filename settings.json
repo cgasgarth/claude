@@ -4,6 +4,9 @@
     "DISABLE_AUTOUPDATER": "1",
     "CLODEX_NATIVE_COMPUTER_USE": "1"
   },
+  "attribution": {
+    "commit": ""
+  },
   "permissions": {
     "allow": [
       "mcp__computer-use__*"
@@ -11,10 +14,7 @@
     "defaultMode": "bypassPermissions",
     "skipDangerousModePermissionPrompt": true
   },
-  "model": "luna",
-  "attribution": {
-    "commit": ""
-  },
+  "model": "sol",
   "skillOverrides": {
     "claude-api": "off"
   },
