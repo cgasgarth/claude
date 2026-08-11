@@ -7,7 +7,7 @@ through an OpenAI/ChatGPT subscription.
 
 - Clodex checkout: `/Users/cgas/Documents/Projects/clodex` (`main`)
 - Installed packed CLI: `~/.bun/bin/clodex`
-- Claude Code: `2.1.224` at `~/.local/bin/claude`
+- Claude Code: `2.1.227` at `~/.local/bin/claude`
 - Runtime state: `~/.clodex/`
 - Provider: `openai-oauth`
 - Default: `sol`, high effort, bypass permissions
@@ -46,7 +46,7 @@ See `docs/native-codex-compaction.md` in the Clodex checkout.
 
 ## Claude binary patch
 
-This Clodex release supports Claude Code `2.1.224` only. `clodex patch` rejects
+This Clodex release supports Claude Code `2.1.227` only. `clodex patch` rejects
 other versions before it reads or changes the binary; `clodex patch --restore`
 remains available for recovery.
 
