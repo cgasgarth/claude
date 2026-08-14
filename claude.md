@@ -14,6 +14,7 @@
 - Keep responses information-dense and avoid unnecessary repetition.
 - Prefer `rg` for searching files and text.
 - Use focused CLI tools when appropriate, including `ast-grep` (`sg`), `git`, `gh`, `bun`, and `bunx`.
+- Do not use python for inline scripts, use bun. Only use python unless the task absolutely requires it
 - When several independent checks are needed, batch them where practical rather than running them serially.
 
 ## Engineering Principles

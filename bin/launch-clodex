@@ -17,7 +17,16 @@ if [[ -z "$model_setting" ]]; then
   exit 1
 fi
 
+claude_args=("$@")
+for arg in "$@"; do
+  case "$arg" in
+    --worktree|-w|--worktree=*)
+      exec clodex claude --endpoint -- --model "$model_setting" "${claude_args[@]}"
+      ;;
+  esac
+done
+
 # Endpoint mode routes the saved short alias through the persistent Clodex daemon.
 # The daemon owns shared WebSocket/cache/compaction state for the main process,
 # workflows, subagents, and background sessions.
-exec clodex claude --endpoint -- --model "$model_setting" "$@"
+exec clodex claude --endpoint -- --model "$model_setting" --worktree "${claude_args[@]}"

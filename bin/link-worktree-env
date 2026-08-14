@@ -1,0 +1,27 @@
+#!/bin/bash
+set -euo pipefail
+
+cwd=${1:-${CLAUDE_PROJECT_DIR:-}}
+if [[ -z "$cwd" ]]; then
+  cwd=$(jq -er '.cwd')
+fi
+if ! current_root=$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null); then
+  exit 0
+fi
+
+main_root=$(git -C "$current_root" worktree list --porcelain | {
+  IFS= read -r line
+  printf '%s\n' "${line#worktree }"
+})
+if [[ "$current_root" == "$main_root" ]]; then
+  exit 0
+fi
+
+while IFS= read -r -d '' source; do
+  filename=${source##*/}
+  destination="$current_root/$filename"
+  if git -C "$main_root" check-ignore -q -- "$filename" \
+    && [[ ! -e "$destination" && ! -L "$destination" ]]; then
+    ln -s "$source" "$destination"
+  fi
+done < <(find "$main_root" -maxdepth 1 -type f -name '.env*' -print0)
