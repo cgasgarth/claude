@@ -1,9 +1,9 @@
 # Subagent Model Selection
 
-- Use only `sol`, `luna`, or `Grok` for subagents.
-- Use `luna` for research and exploration
-- Run `grok` at `high` reasoning effort for straightforward implementations and other well-scoped tasks.
-- Use `sol` for advanced problem solving and UI design work that `grok` could not handle.
+- Use only `sol`, `luna`, or `terra` for subagents.
+- Use `luna` for research and exploration.
+- Run `terra` at `high` reasoning effort for straightforward implementations and other well-scoped tasks.
+- Use `sol` for advanced problem solving and UI design work that `terra` could not handle.
 - Always run `sol` subagents at `medium` or `high` effort setting; choose `high` for exceptionally hard work
 - For direct subagent calls that do not expose an effort setting, select the required model and use its inherited reasoning configuration.
 
