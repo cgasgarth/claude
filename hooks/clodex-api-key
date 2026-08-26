@@ -1,0 +1,11 @@
+#!/bin/zsh
+set -u
+
+token_path="${CLODEX_HOME:-${HOME}/.clodex}/proxy-token"
+if [[ ! -r "$token_path" ]]; then
+  print -u2 "Clodex proxy token is unavailable."
+  exit 1
+fi
+
+IFS= read -r token < "$token_path"
+print -r -- "$token"
