@@ -70,7 +70,7 @@
       }
     }
   },
-  "effortLevel": "high",
+  "effortLevel": "medium",
   "promptSuggestionEnabled": false,
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
