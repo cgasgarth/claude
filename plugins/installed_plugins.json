@@ -23,20 +23,607 @@
     "typescript-native-lsp@native-typescript-lsp": [
       {
         "scope": "user",
-        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
-        "version": "1.0.1",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
         "installedAt": "2026-08-13T23:48:20.762Z",
-        "lastUpdated": "2026-08-13T23:48:20.762Z",
+        "lastUpdated": "2026-08-27T06:18:56.831Z",
         "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
       },
       {
         "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/peaceful-sprouting-comet",
         "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
         "version": "1.0.1",
         "installedAt": "2026-08-14T02:05:04.026Z",
         "lastUpdated": "2026-08-14T02:05:04.026Z",
-        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef",
-        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/peaceful-sprouting-comet"
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/memoized-mixing-knuth",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-14T02:14:39.915Z",
+        "lastUpdated": "2026-08-14T02:14:39.915Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/generic-spinning-lark",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-14T02:38:28.428Z",
+        "lastUpdated": "2026-08-14T02:38:28.428Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/synchronous-puzzling-raven",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-14T03:50:07.984Z",
+        "lastUpdated": "2026-08-14T03:50:07.984Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/majestic-leaping-meadow",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-14T03:50:42.092Z",
+        "lastUpdated": "2026-08-14T03:50:42.092Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/hidden-inventing-rabin",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-14T07:18:11.120Z",
+        "lastUpdated": "2026-08-14T07:18:11.120Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/hazy-frolicking-peacock",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-14T15:00:18.465Z",
+        "lastUpdated": "2026-08-14T15:00:18.465Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/concurrent-painting-lake",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-14T15:00:41.873Z",
+        "lastUpdated": "2026-08-14T15:00:41.873Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/cozy-beaming-moler",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-14T15:04:54.546Z",
+        "lastUpdated": "2026-08-14T15:04:54.546Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/reactive-frolicking-quill",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-14T15:06:53.723Z",
+        "lastUpdated": "2026-08-14T15:06:53.723Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/snazzy-noodling-nest",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-15T21:09:26.231Z",
+        "lastUpdated": "2026-08-15T21:09:26.231Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/cuddly-growing-liskov",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-15T21:15:26.770Z",
+        "lastUpdated": "2026-08-15T21:15:26.770Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/groovy-churning-shannon",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-16T00:48:15.722Z",
+        "lastUpdated": "2026-08-16T00:48:15.722Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/plugin",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-16T01:27:53.734Z",
+        "lastUpdated": "2026-08-16T01:27:53.734Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-16T23:28:52.529Z",
+        "lastUpdated": "2026-08-16T23:28:52.529Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/prancy-gliding-bentley",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-16T23:34:50.641Z",
+        "lastUpdated": "2026-08-16T23:34:50.641Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/crystalline-napping-plum",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-17T20:18:54.282Z",
+        "lastUpdated": "2026-08-17T20:18:54.282Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/peaceful-tumbling-wreath",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-18T03:37:01.065Z",
+        "lastUpdated": "2026-08-18T03:37:01.065Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/rosy-mixing-star",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-18T20:09:10.979Z",
+        "lastUpdated": "2026-08-18T20:09:10.979Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/vast-spinning-crown",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-18T20:41:56.238Z",
+        "lastUpdated": "2026-08-18T20:41:56.238Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/logical-mixing-hare",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-18T21:13:30.869Z",
+        "lastUpdated": "2026-08-18T21:13:30.869Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/elegant-crafting-dahl",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-19T14:59:49.486Z",
+        "lastUpdated": "2026-08-19T14:59:49.486Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/sequential-popping-moore",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-19T23:18:10.513Z",
+        "lastUpdated": "2026-08-19T23:18:10.513Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/floating-mapping-gadget",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-20T01:41:01.455Z",
+        "lastUpdated": "2026-08-20T01:41:01.455Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/gentle-strolling-flamingo",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-20T02:27:53.958Z",
+        "lastUpdated": "2026-08-20T02:27:53.958Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/zippy-tinkering-rose",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-20T02:29:11.757Z",
+        "lastUpdated": "2026-08-20T02:29:11.757Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/dazzling-seeking-garden",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-20T03:14:19.226Z",
+        "lastUpdated": "2026-08-20T03:14:19.226Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/quirky-soaring-rossum",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-20T03:16:19.843Z",
+        "lastUpdated": "2026-08-20T03:16:19.843Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/smooth-baking-hellman",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-20T03:26:56.108Z",
+        "lastUpdated": "2026-08-20T03:26:56.108Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/gleaming-snacking-nebula",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-20T14:19:39.927Z",
+        "lastUpdated": "2026-08-20T14:19:39.927Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/zany-wandering-riddle",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-20T15:21:38.485Z",
+        "lastUpdated": "2026-08-20T15:21:38.485Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/goofy-dazzling-parrot",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-20T18:49:08.830Z",
+        "lastUpdated": "2026-08-20T18:49:08.830Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/indexed-sparking-firefly",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-20T18:50:06.267Z",
+        "lastUpdated": "2026-08-20T18:50:06.267Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/wobbly-soaring-puffin",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-20T20:56:01.173Z",
+        "lastUpdated": "2026-08-20T20:56:01.173Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/_worktrees/atelier/atelier-aws-core-plugin",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-20T22:01:12.560Z",
+        "lastUpdated": "2026-08-20T22:01:12.560Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/compiled-crafting-cookie",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-20T22:25:05.599Z",
+        "lastUpdated": "2026-08-20T22:25:05.599Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/concurrent-toasting-parrot",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-21T01:04:44.814Z",
+        "lastUpdated": "2026-08-21T01:04:44.814Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/harmonic-launching-fairy",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-21T01:05:16.143Z",
+        "lastUpdated": "2026-08-21T01:05:16.143Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/reflective-conjuring-hearth",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-21T01:06:23.656Z",
+        "lastUpdated": "2026-08-21T01:06:23.656Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/sunny-imagining-mist",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-21T01:12:38.100Z",
+        "lastUpdated": "2026-08-21T01:12:38.100Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/lively-hugging-ember",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-21T02:00:38.105Z",
+        "lastUpdated": "2026-08-21T02:00:38.105Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/playful-nibbling-heron",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-21T16:30:48.498Z",
+        "lastUpdated": "2026-08-21T16:30:48.498Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/drifting-weaving-valiant",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-21T16:31:25.382Z",
+        "lastUpdated": "2026-08-21T16:31:25.382Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/logical-orbiting-tower",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-21T17:00:41.449Z",
+        "lastUpdated": "2026-08-21T17:00:41.449Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/transient-finding-yeti",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-22T18:30:32.329Z",
+        "lastUpdated": "2026-08-22T18:30:32.329Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/idempotent-stargazing-quasar",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-22T19:15:31.634Z",
+        "lastUpdated": "2026-08-22T19:15:31.634Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/serene-wandering-acorn",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-22T19:26:00.240Z",
+        "lastUpdated": "2026-08-22T19:26:00.240Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/jazzy-sniffing-pizza",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-22T20:14:18.120Z",
+        "lastUpdated": "2026-08-22T20:14:18.120Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/sql-statements-iterative",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-22T21:18:04.965Z",
+        "lastUpdated": "2026-08-22T21:18:04.965Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/sleepy-cuddling-bentley",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-22T21:20:06.946Z",
+        "lastUpdated": "2026-08-22T21:20:06.946Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/purrfect-greeting-tome",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-22T21:31:36.311Z",
+        "lastUpdated": "2026-08-22T21:31:36.311Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/composed-gliding-wozniak",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-23T23:13:59.374Z",
+        "lastUpdated": "2026-08-23T23:13:59.374Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/graceful-drifting-zephyr",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-24T13:52:04.448Z",
+        "lastUpdated": "2026-08-24T13:52:04.448Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/joyful-sleeping-mountain",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-24T20:02:45.728Z",
+        "lastUpdated": "2026-08-24T20:02:45.728Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/zippy-gathering-allen",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-25T05:49:29.272Z",
+        "lastUpdated": "2026-08-25T05:49:29.272Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/luminous-leaping-sparrow",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-26T06:31:36.087Z",
+        "lastUpdated": "2026-08-26T06:31:36.087Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/validated-swimming-hartmanis",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-26T06:59:51.210Z",
+        "lastUpdated": "2026-08-26T06:59:51.210Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/streamed-jumping-kernighan",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-26T16:25:51.137Z",
+        "lastUpdated": "2026-08-26T16:25:51.137Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/valiant-foraging-moonbeam",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-26T16:32:17.984Z",
+        "lastUpdated": "2026-08-26T16:32:17.984Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/sorted-crafting-possum",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-26T16:34:01.074Z",
+        "lastUpdated": "2026-08-26T16:34:01.074Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/synchronous-wiggling-papert",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-26T17:46:09.330Z",
+        "lastUpdated": "2026-08-26T17:46:09.330Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/idempotent-prancing-nova",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-26T20:41:35.626Z",
+        "lastUpdated": "2026-08-26T20:41:35.626Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/bun-runtime-and-tests",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-27T00:32:23.379Z",
+        "lastUpdated": "2026-08-27T00:32:23.379Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/tidy-meandering-lemon",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.1",
+        "version": "1.0.1",
+        "installedAt": "2026-08-27T05:31:18.566Z",
+        "lastUpdated": "2026-08-27T05:31:18.566Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      }
+    ],
+    "aws-core@claude-plugins-official": [
+      {
+        "scope": "project",
+        "projectPath": "/Users/cgas/Documents/Projects/_worktrees/atelier/atelier-aws-core-plugin",
+        "installPath": "/Users/cgas/.claude/plugins/cache/claude-plugins-official/aws-core/1.1.0",
+        "version": "1.1.0",
+        "installedAt": "2026-08-20T22:16:54.711Z",
+        "lastUpdated": "2026-08-20T22:16:54.711Z",
+        "gitCommitSha": "651a156ef7a92f380a9494978e223ff555102eac"
+      },
+      {
+        "scope": "project",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier",
+        "installPath": "/Users/cgas/.claude/plugins/cache/claude-plugins-official/aws-core/1.1.0",
+        "version": "1.1.0",
+        "installedAt": "2026-08-21T01:19:49.010Z",
+        "lastUpdated": "2026-08-21T01:19:49.010Z",
+        "gitCommitSha": "651a156ef7a92f380a9494978e223ff555102eac"
       }
     ]
   }

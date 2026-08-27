@@ -26,84 +26,20 @@ while IFS= read -r -d '' source; do
   fi
   done < <(find "$main_root" -maxdepth 1 -type f -name '.env*' -print0)
 
-atelier_link_worktree_node_modules() {
-  local main_root=${1}
-  local current_root=${2}
-  local source_node_modules="$main_root/node_modules"
-  local destination_node_modules="$current_root/node_modules"
+atelier_prepare_worktree() {
+  local current_root=${1}
+  local ready_file="$current_root/node_modules/.atelier-worktree-ready"
 
-  if [[ ! -d "$source_node_modules" ]]; then
+  if [[ ! -f "$current_root/package.json" ]] \
+    || ! jq -e '.name == "atelier"' "$current_root/package.json" >/dev/null \
+    || [[ ! -f "$current_root/packages/types/package.json" ]] \
+    || [[ -f "$ready_file" ]]; then
     return 0
   fi
 
-  if [[ -L "$destination_node_modules" ]]; then
-    if [[ "$(realpath "$destination_node_modules")" != "$(realpath "$source_node_modules")" ]]; then
-      return 0
-    fi
-    rm "$destination_node_modules"
-  elif [[ -e "$destination_node_modules" ]]; then
-    return 0
-  fi
-
-  mkdir -p "$destination_node_modules"
-
-  local source
-  local name
-  local source_target
-  for source in "$source_node_modules"/*; do
-    [[ -e "$source" || -L "$source" ]] || continue
-    name=${source##*/}
-    [[ "$name" != "@atelier" ]] || continue
-    if [[ -L "$source" ]]; then
-      source_target=$(realpath "$source")
-      case "$source_target" in
-        "$main_root"/apps/*|"$main_root"/packages/*|"$main_root"/e2e|"$main_root"/infra/cdk|"$main_root"/scripts)
-          continue
-          ;;
-      esac
-    fi
-    if [[ ! -e "$destination_node_modules/$name" && ! -L "$destination_node_modules/$name" ]]; then
-      ln -s "$source" "$destination_node_modules/$name"
-    fi
-  done
-
-  if [[ -e "$source_node_modules/.bin" && ! -e "$destination_node_modules/.bin" ]]; then
-    ln -s "$source_node_modules/.bin" "$destination_node_modules/.bin"
-  fi
-
-  local workspace_root
-  local manifest
-  local package_name
-  local package_scope
-  local package_basename
-  local destination
-  for workspace_root in \
-    "$main_root"/apps/* \
-    "$main_root"/packages/* \
-    "$main_root"/e2e \
-    "$main_root"/infra/cdk \
-    "$main_root"/scripts; do
-    manifest="$workspace_root/package.json"
-    [[ -f "$manifest" ]] || continue
-    package_name=$(jq -er '.name' "$manifest")
-    if [[ "$package_name" == */* ]]; then
-      package_scope=${package_name%%/*}
-      package_basename=${package_name#*/}
-      mkdir -p "$destination_node_modules/$package_scope"
-      destination="$destination_node_modules/$package_scope/$package_basename"
-    else
-      destination="$destination_node_modules/$package_name"
-    fi
-    if [[ -L "$destination" ]]; then
-      if [[ "$(realpath "$destination")" == "$(realpath "$workspace_root")" ]]; then
-        continue
-      fi
-      rm "$destination"
-    elif [[ -e "$destination" ]]; then
-      continue
-    fi
-    ln -s "$current_root/${workspace_root#"$main_root"/}" "$destination"
-  done
+  npm --prefix "$current_root" ci
+  npm --prefix "$current_root" --workspace @atelier/types run build
+  touch "$ready_file"
 }
 
-atelier_link_worktree_node_modules "$main_root" "$current_root"
+atelier_prepare_worktree "$current_root"
