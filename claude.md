@@ -6,6 +6,7 @@
 - Use `sol` for advanced problem solving and UI design work that `terra` could not handle.
 - Always run `sol` subagents at `medium` or `high` effort setting; choose `high` for exceptionally hard work
 - For direct subagent calls that do not expose an effort setting, select the required model and use its inherited reasoning configuration.
+- Do not use fork subagents. Spawn a fresh subagent for every delegated task.
 
 ## Working Style
 
