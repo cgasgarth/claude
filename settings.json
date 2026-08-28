@@ -5,8 +5,8 @@
     "ANTHROPIC_API_KEY": "clodex",
     "CLAUDE_CODE_DISABLE_NONSTREAMING_FALLBACK": "1",
     "CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY": "1",
-    "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "450000",
     "CLAUDE_CODE_MAX_CONTEXT_TOKENS": "1000000",
+    "DISABLE_AUTO_COMPACT": "1",
     "CLAUDE_CODE_PROCESS_WRAPPER": "/Users/cgas/.bun/bin/clodex-claude",
     "CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT": "0",
     "CLAUDE_STREAM_IDLE_TIMEOUT_MS": "900000",
@@ -56,13 +56,6 @@
       {
         "matcher": "*",
         "hooks": [
-          {
-            "type": "command",
-            "command": "/Users/cgas/.claude/bin/link-worktree-env",
-            "args": [],
-            "timeout": 600,
-            "statusMessage": "Preparing worktree dependencies and types"
-          },
           {
             "type": "command",
             "command": "/Users/cgas/.claude/hooks/ensure-clodex",

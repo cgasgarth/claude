@@ -604,6 +604,87 @@
         "installedAt": "2026-08-27T05:31:18.566Z",
         "lastUpdated": "2026-08-27T05:31:18.566Z",
         "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/precious-finding-rabbit",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-08-27T22:10:38.685Z",
+        "lastUpdated": "2026-08-27T22:10:38.685Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/jiggly-chasing-harbor",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-08-27T22:10:46.848Z",
+        "lastUpdated": "2026-08-27T22:10:46.848Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/dazzling-giggling-jellyfish",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-08-27T22:28:57.683Z",
+        "lastUpdated": "2026-08-27T22:28:57.683Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/fluffy-drifting-conway",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-08-27T22:29:07.630Z",
+        "lastUpdated": "2026-08-27T22:29:07.630Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/wild-sniffing-valley",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-08-27T22:54:21.653Z",
+        "lastUpdated": "2026-08-27T22:54:21.653Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/lazy-wibbling-mccarthy",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-08-27T22:56:21.301Z",
+        "lastUpdated": "2026-08-27T22:56:21.301Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/lively-petting-anchor",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-08-28T03:03:08.808Z",
+        "lastUpdated": "2026-08-28T03:03:08.808Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/pure-weaving-sunbeam",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-08-28T03:22:10.274Z",
+        "lastUpdated": "2026-08-28T03:22:10.274Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-08-28T15:14:04.164Z",
+        "lastUpdated": "2026-08-28T15:14:04.164Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/parallel-twirling-treasure"
       }
     ],
     "aws-core@claude-plugins-official": [
