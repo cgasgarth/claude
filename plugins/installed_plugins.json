@@ -679,12 +679,84 @@
       },
       {
         "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/parallel-twirling-treasure",
         "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
         "version": "1.0.2",
         "installedAt": "2026-08-28T15:14:04.164Z",
         "lastUpdated": "2026-08-28T15:14:04.164Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/glowing-imagining-noodle",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-08-30T05:15:52.082Z",
+        "lastUpdated": "2026-08-30T05:15:52.082Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/federated-dreaming-avalanche",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-08-30T05:18:45.604Z",
+        "lastUpdated": "2026-08-30T05:18:45.604Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/silly-munching-peach",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-08-30T17:26:31.700Z",
+        "lastUpdated": "2026-08-30T17:26:31.700Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/validated-dreaming-donut",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-08-30T22:25:35.790Z",
+        "lastUpdated": "2026-08-30T22:25:35.790Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/radiant-hopping-cherny",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-08-30T22:51:23.127Z",
+        "lastUpdated": "2026-08-30T22:51:23.127Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/expressive-yawning-puzzle",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-09-03T20:00:30.067Z",
+        "lastUpdated": "2026-09-03T20:00:30.067Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/cheerful-enchanting-raccoon",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-09-03T20:05:43.340Z",
+        "lastUpdated": "2026-09-03T20:05:43.340Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-09-04T22:25:15.010Z",
+        "lastUpdated": "2026-09-04T22:25:15.010Z",
         "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef",
-        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/parallel-twirling-treasure"
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/spicy-jingling-flurry"
       }
     ],
     "aws-core@claude-plugins-official": [

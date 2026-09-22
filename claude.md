@@ -1,13 +1,12 @@
 # Subagent Model Selection
 
-- Use only `sol`, `luna`, or `terra` for subagents.
-- Use `luna` for research and exploration.
-- Run `terra` at `high` reasoning effort for straightforward implementations and other well-scoped tasks.
-- Use `sol` for advanced problem solving and UI design work that `terra` could not handle.
-- Always run `sol` subagents at `medium` or `high` effort setting; choose `high` for exceptionally hard work
-- For direct subagent calls that do not expose an effort setting, select the required model and use its inherited reasoning configuration.
+- Use only GPT-6 Sol (gpt-6-sol, alias sol) and GPT-6 Luna (gpt-6-luna, alias luna) for subagents.
+- Use GPT-6 Luna for research and exploration.
+- Run GPT-6 Sol at high reasoning effort for straightforward implementations and other well-scoped tasks.
+- Use GPT-6 Sol for advanced problem solving and UI design.
+- Always run GPT-6 Sol subagents at medium or high effort; choose high for exceptionally hard work.
+- For direct subagent calls that do not expose an effort setting, select one of these models and use its inherited reasoning configuration.
 - Do not use fork subagents. Spawn a fresh subagent for every delegated task.
-
 ## Working Style
 
 - Keep routine command, script, and validation output concise.

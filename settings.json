@@ -27,24 +27,19 @@
   "modelPicker": {
     "options": [
       {
+        "model": "astra[1m]",
+        "label": "astra",
+        "description": "GPT-6 Astra (OpenAI (ChatGPT))"
+      },
+      {
         "model": "sol[1m]",
         "label": "sol",
-        "description": "GPT-5.6 Sol (OpenAI (ChatGPT))"
+        "description": "GPT-6 Sol (OpenAI (ChatGPT))"
       },
       {
         "model": "luna[1m]",
         "label": "luna",
-        "description": "GPT-5.6 Luna (OpenAI (ChatGPT))"
-      },
-      {
-        "model": "terra[1m]",
-        "label": "terra",
-        "description": "GPT-5.6 Terra (OpenAI (ChatGPT))"
-      },
-      {
-        "model": "grok[1m]",
-        "label": "grok",
-        "description": "Grok 4.6 (xAI (SuperGrok))"
+        "description": "GPT-6 Luna (OpenAI (ChatGPT))"
       }
     ]
   },
