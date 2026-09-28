@@ -6,15 +6,14 @@
 !README.md
 !claude.md
 !CLAUDE.md
-!CODEX_IN_CLAUDE.md
-!MCP_SETUP.md
-!bin/
-!bin/**
+!docs/
+!docs/**
+!scripts/
+!scripts/**
 
 # Durable user settings.
 !settings.json
 !settings.local.json
-!statusline-command.sh
 !.mcp.json
 !mcp.json
 
@@ -29,8 +28,6 @@
 !hooks/**
 !mcp/
 !mcp/**
-!mcps/
-!mcps/**
 
 # Keep plugin selections and marketplace declarations, not downloaded code,
 # caches, usage data, or marketplace clones.
@@ -55,3 +52,4 @@ plugins/*
 **/sessions/
 **/projects/
 **/history.jsonl
+**/node_modules/

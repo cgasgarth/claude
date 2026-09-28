@@ -2,12 +2,41 @@
 
 Personal Claude Code configuration for `cgasgarth`.
 
-Included:
+## Layout
 
-- `settings.json` and `settings.local.json`
-- Global Claude guidance and the Codex-in-Claude setup notes
-- User-authored skills, agents, commands, hooks, and MCP configuration
-- Plugin installation and marketplace declarations
+```text
+~/.claude/
+├── settings.json             Claude settings and tool permissions
+├── settings.local.json       Local Claude settings
+├── claude.md                 Global instructions
+├── docs/
+│   └── clodex.md             Model routing setup
+├── hooks/                   Claude lifecycle hooks
+├── scripts/
+│   └── statusline.sh         Status-line renderer
+├── mcp/
+│   └── codex-controls/
+│       ├── README.md         Setup and usage
+│       ├── permissions.json Approval mode
+│       ├── package.json     Dependencies and commands
+│       ├── bun.lock         Dependency lockfile
+│       ├── scripts/         MCP registration
+│       ├── src/             MCP server and control transport
+│       └── tests/           Tests and fixtures
+├── plugins/                 Plugin and marketplace declarations
+└── skills/                  User skills
+```
+
+Claude settings, instructions, hooks, skills, and plugin declarations stay in
+the locations Claude expects. Standalone MCP packages own their source,
+dependencies, setup scripts, and documentation.
+
+## Setup guides
+
+- [Codex computer and Chrome controls](mcp/codex-controls/README.md)
+- [Clodex model routing](docs/clodex.md)
+
+## Git boundaries
 
 Excluded:
 
@@ -18,3 +47,7 @@ Excluded:
 
 The plugin manifests record desired installations; downloaded plugin code is
 reproducible and intentionally not versioned.
+
+Live user-scoped MCP registrations are in `~/.claude.json`, outside this repo.
+Use the MCP package's install script to create them. Keep credentials and
+generated runtime state out of Git.

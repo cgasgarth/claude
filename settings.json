@@ -17,11 +17,14 @@
     "commit": ""
   },
   "permissions": {
-    "allow": [
-      "mcp__computer-use__*"
-    ],
+    "allow": [],
     "defaultMode": "bypassPermissions",
-    "skipDangerousModePermissionPrompt": true
+    "skipDangerousModePermissionPrompt": true,
+    "deny": [
+      "mcp__computer-use__*",
+      "mcp__claude-in-chrome__*",
+      "mcp__playwright__*"
+    ]
   },
   "model": "sol[1m]",
   "modelPicker": {
@@ -68,7 +71,7 @@
   },
   "statusLine": {
     "type": "command",
-    "command": "~/.claude/statusline-command.sh"
+    "command": "~/.claude/scripts/statusline.sh"
   },
   "enabledPlugins": {
     "rust-analyzer-lsp@claude-plugins-official": true,
