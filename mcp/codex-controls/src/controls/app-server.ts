@@ -49,6 +49,8 @@ interface AppServerOptions {
   environment?: Readonly<NodeJS.ProcessEnv>;
   timeoutMs?: number;
   configPath?: string;
+  allPlugins?: boolean;
+  onNotification?: (method: string, params: unknown) => void;
 }
 
 function parseResponse(line: string): unknown {
@@ -91,7 +93,8 @@ class CodexControlsSession {
   }
 
   private async startProcess(): Promise<void> {
-    const configOverrides = await controlConfigOverrides(this.options.configPath);
+    const configOverrides =
+      this.options.allPlugins === true ? [] : await controlConfigOverrides(this.options.configPath);
     this.directory = await mkdtemp(path.join(tmpdir(), "claude-codex-codex-controls-"));
     if (this.closed) {
       await rm(this.directory, { recursive: true, force: true });
@@ -157,6 +160,38 @@ class CodexControlsSession {
   }
 
   private async invokeStarted(request: InvokeRequest): Promise<CallToolResult> {
+    this.usedServers.add(request.server);
+    return this.callTool({
+      server: request.server,
+      tool: "js",
+      arguments: {
+        code: request.code,
+        title: request.title,
+        timeout_ms: this.options.timeoutMs ?? RPC_TIMEOUT_MS,
+      },
+      relay: request.relay,
+      signal: request.signal,
+    });
+  }
+
+  public async listServers(cursor?: string): Promise<unknown> {
+    await this.start();
+    return this.request("mcpServerStatus/list", {
+      threadId: this.threadId,
+      detail: "toolsAndAuthOnly",
+      ...(cursor === undefined ? {} : { cursor }),
+    });
+  }
+
+  public async callTool(
+    request: Readonly<{
+      server: string;
+      tool: string;
+      arguments: unknown;
+      relay: ApprovalRelay;
+      signal?: AbortSignal | undefined;
+    }>,
+  ): Promise<CallToolResult> {
     await this.start();
     if (this.active) {
       throw new Error("Another controls call is active");
@@ -170,19 +205,14 @@ class CodexControlsSession {
     }
     this.active = true;
     this.approval = request.relay;
-    this.usedServers.add(request.server);
     try {
       const result = await this.request(
         "mcpServer/tool/call",
         {
           threadId: this.threadId,
           server: request.server,
-          tool: "js",
-          arguments: {
-            code: request.code,
-            title: request.title,
-            timeout_ms: this.options.timeoutMs ?? RPC_TIMEOUT_MS,
-          },
+          tool: request.tool,
+          arguments: request.arguments,
           _meta: {
             "x-codex-turn-metadata": JSON.stringify({
               session_id: this.threadId,
@@ -364,6 +394,7 @@ class CodexControlsSession {
       return;
     }
     if (!("id" in message)) {
+      this.options.onNotification?.(message.method, message.params);
       return;
     }
     const pending = this.pending.get(Number(message.id));

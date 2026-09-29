@@ -1,9 +1,10 @@
 # MCP setup
 
-Claude uses two independent stdio MCP servers from this repository:
+Claude uses three stdio MCP servers from this repository:
 
 - `computer`: Codex native computer controls.
 - `chrome`: Codex Chrome extension controls.
+- `codex`: tools discovered from your enabled Codex MCP servers and connected apps.
 
 The complete bridge source, dependency manifest, lockfile, and tests are in
 this directory. This does not need System One or a
@@ -20,13 +21,13 @@ from your Codex configuration.
 ~/.claude/mcp/codex-controls/scripts/install.sh
 ```
 
-The script installs this package's locked dependencies and registers `computer`
-and `chrome` at user scope. It replaces only those two registrations. Claude
+The script installs this package's locked dependencies and registers `computer`,
+`chrome`, and `codex` at user scope. It replaces only those registrations. Claude
 writes the live registrations to `~/.claude.json`, outside this Git repository.
 Keep that personal state file out of Git; the setup script recreates the MCP
 entries with the correct local paths.
 
-Start a new Claude session and check `/mcp`. Both servers should connect. This
+Start a new Claude session and check `/mcp`. All three servers should connect. This
 checks MCP connectivity, not access to the selected model.
 
 ## How it works
@@ -80,3 +81,41 @@ This is an experimental integration with the installed desktop runtime. Desktop
 updates can change its interfaces. The repository includes no proprietary
 runtime, credentials, or permission grants. Model availability and agent task
 accuracy remain separate from MCP connectivity.
+
+## Dynamic Codex tools
+
+The `codex` MCP process reads the live Codex tool inventory when Claude starts
+it. It passes the upstream input/output schemas, descriptions, annotations, and
+account metadata through to Claude. Tool names have a stable server prefix and
+hash so different servers cannot collide. No model turn is used for discovery
+or execution.
+
+The bridge watches `~/.codex/config.toml`, including file replacements. Changes
+reload its owned Codex session after any active call finishes. Codex app-list
+and server-startup events also refresh the inventory. An updated inventory emits
+one `notifications/tools/list_changed` notification. No timer polls the catalog.
+For account changes without a Codex event, call `refresh_plugins`, or reconnect
+`codex` in `/mcp`. `codex_status` shows upstream startup errors. Failed and
+disabled servers do not expose callable tools.
+
+Gmail and other apps can advertise several accounts in their tool metadata.
+The original `link_id` input remains required when Codex requires it. Claude
+selects the account from the listed connections; the bridge forwards that ID
+unchanged. Codex handles authentication. This package stores no connection
+IDs or credentials. Both configured Gmail accounts were verified with read-only
+profile calls through the stdio bridge.
+
+Computer and Chrome REPLs remain in `computer` and `chrome`; `codex` does not
+duplicate them. This synchronizes MCP **tools**. Plugin skills, prompts,
+resources, and app UI rendering are not imported into Claude.
+
+Validation:
+
+```sh
+bun run check
+bun run test
+bun run format:check
+bun run smoke:plugins  # live discovery, Gmail account profiles, and reload
+```
+
+The live smoke test reads account profiles only. It does not send email.

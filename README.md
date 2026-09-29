@@ -21,7 +21,7 @@ Personal Claude Code configuration for `cgasgarth`.
 │       ├── package.json     Dependencies and commands
 │       ├── bun.lock         Dependency lockfile
 │       ├── scripts/         MCP registration
-│       ├── src/             MCP server and control transport
+│       ├── src/             Control tools and dynamic Codex tool bridge
 │       └── tests/           Tests and fixtures
 ├── plugins/                 Plugin and marketplace declarations
 └── skills/                  User skills
@@ -33,7 +33,7 @@ dependencies, setup scripts, and documentation.
 
 ## Setup guides
 
-- [Codex computer and Chrome controls](mcp/codex-controls/README.md)
+- [Codex controls and dynamic plugin tools](mcp/codex-controls/README.md)
 - [Clodex model routing](docs/clodex.md)
 
 ## Git boundaries
