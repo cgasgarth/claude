@@ -26,18 +26,18 @@
       "mcp__playwright__*"
     ]
   },
-  "model": "sol[1m]",
+  "model": "sol-6.1[1m]",
   "modelPicker": {
     "options": [
+      {
+        "model": "sol-6.1[1m]",
+        "label": "sol-6.1",
+        "description": "sol-6.1 (OpenAI (ChatGPT))"
+      },
       {
         "model": "astra[1m]",
         "label": "astra",
         "description": "GPT-6 Astra (OpenAI (ChatGPT))"
-      },
-      {
-        "model": "sol[1m]",
-        "label": "sol",
-        "description": "GPT-6 Sol (OpenAI (ChatGPT))"
       },
       {
         "model": "luna[1m]",
