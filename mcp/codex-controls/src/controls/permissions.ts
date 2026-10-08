@@ -14,3 +14,4 @@ function automaticApproval(settings: Readonly<PermissionSettings>): ApprovalResu
 }
 
 export { automaticApproval, permissionSettingsSchema };
+export type { PermissionSettings };

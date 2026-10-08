@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "bun src/app/server.ts",
+    "start": "bun src/app/cua.ts",
     "check": "oxlint --type-aware --type-check --max-warnings 0 --report-unused-disable-directives",
     "test": "bun test ./tests",
     "format": "oxfmt --write src tests scripts package.json tsconfig.json .oxlintrc.json .oxfmtrc.json",
@@ -12,12 +12,13 @@
     "smoke:plugins": "bun scripts/smoke-plugins.ts"
   },
   "dependencies": {
+    "@modelcontextprotocol/client": "^2.1.0",
     "@modelcontextprotocol/core": "2.1.0",
     "@modelcontextprotocol/server": "2.1.0",
+    "openai": "^7.30.0",
     "zod": "^4.1.12"
   },
   "devDependencies": {
-    "@modelcontextprotocol/client": "^2.1.0",
     "@tsconfig/strictest": "^2.0.8",
     "@types/bun": "^1.4.2",
     "oxfmt": "^0.70.0",

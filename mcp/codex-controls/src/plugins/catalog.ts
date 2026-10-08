@@ -4,7 +4,7 @@ import { createHash } from "node:crypto";
 import { ToolSchema } from "@modelcontextprotocol/core";
 import type { Tool } from "@modelcontextprotocol/server";
 import { z } from "zod";
-import type { CodexControlsSession } from "../controls/app-server.ts";
+import type { CodexPluginsSession } from "./session.ts";
 
 const pageSchema = z.object({
   data: z.array(
@@ -54,7 +54,7 @@ function toolsFromPage(page: Readonly<CatalogPage>): CatalogTool[] {
     }));
   });
 }
-async function loadCatalog(session: CodexControlsSession): Promise<{
+async function loadCatalog(session: CodexPluginsSession): Promise<{
   tools: CatalogTool[];
   servers: { name: string; status: string | undefined; error: string | undefined }[];
 }> {

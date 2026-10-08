@@ -5,8 +5,8 @@ import type { FSWatcher } from "node:fs";
 import { homedir } from "node:os";
 import path from "node:path";
 import type { CallToolResult, Server, ServerContext, Tool } from "@modelcontextprotocol/server";
-import { CodexControlsSession } from "../controls/app-server.ts";
-import type { AppServerOptions } from "../controls/app-server.ts";
+import { CodexPluginsSession } from "./session.ts";
+import type { AppServerOptions } from "./session.ts";
 import { approval } from "../app/approval.ts";
 import { loadCatalog } from "./catalog.ts";
 import type { CatalogTool } from "./catalog.ts";
@@ -14,7 +14,7 @@ import type { CatalogTool } from "./catalog.ts";
 const REFRESH_DELAY_MS = 200;
 const STARTUP_TIMEOUT_MS = 60_000;
 class CodexPluginsBridge {
-  private session: CodexControlsSession;
+  private session: CodexPluginsSession;
   private readonly server: Server;
   private readonly options: Readonly<AppServerOptions>;
   private readonly registrations = new Map<string, CatalogTool>();
@@ -27,17 +27,34 @@ class CodexPluginsBridge {
   private needsRestart = false;
   private catalog: Awaited<ReturnType<typeof loadCatalog>> | undefined;
   private error: string | undefined;
+  private readonly listeners = new Set<() => void>();
+
+  public onChange(listener: () => void): () => void {
+    this.listeners.add(listener);
+    return () => {
+      this.listeners.delete(listener);
+    };
+  }
+  public catalogTools(): readonly CatalogTool[] {
+    return [...this.registrations.values()];
+  }
+  public discoveryHealthy(): boolean {
+    return (
+      this.error === undefined &&
+      this.catalog !== undefined &&
+      this.catalog.servers.every((entry) => entry.error === undefined && entry.status !== "failed")
+    );
+  }
 
   public constructor(server: Server, options: Readonly<AppServerOptions> = {}) {
     this.server = server;
     this.options = options;
     this.session = this.createSession();
   }
-  private createSession(): CodexControlsSession {
-    return new CodexControlsSession({
+  private createSession(): CodexPluginsSession {
+    return new CodexPluginsSession({
       ...this.options,
       timeoutMs: this.options.timeoutMs ?? STARTUP_TIMEOUT_MS,
-      allPlugins: true,
       onNotification: (method) => {
         if (
           this.ready &&
@@ -118,6 +135,9 @@ class CodexPluginsBridge {
         await this.syncTools(catalog.tools);
         this.catalog = catalog;
         this.error = undefined;
+        for (const listener of this.listeners) {
+          listener();
+        }
       } catch (error) {
         await this.syncTools([]);
         this.catalog = undefined;
@@ -170,7 +190,7 @@ class CodexPluginsBridge {
           relay: approval(ctx),
           signal: ctx.mcpReq.signal,
         });
-        return this.server.projectCallToolResult(result, entry.definition.outputSchema);
+        return result;
       });
     } catch (error) {
       return {

@@ -133,6 +133,50 @@ test("refresh replaces tool definitions and notifies the MCP client", async () =
     await cleanup(state);
   }
 });
+
+test("integration entries expose and call only their own tools through the shared session", async () => {
+  const state = await setup();
+  const mail: Tool = { ...profile, _meta: { connector_id: "mail", connector_name: "Gmail" } };
+  const drive: Tool = {
+    ...profile,
+    _meta: { connector_id: "drive", connector_name: "Google Drive" },
+  };
+  const client = new Client({ name: "group-test", version: "1" });
+  try {
+    await Bun.write(
+      state.catalogPath,
+      JSON.stringify(catalog({ "gmail.get_profile": mail, "drive.get_profile": drive })),
+    );
+    await state.bridge.refresh(false);
+    const { server } = await createPluginsServer(
+      {},
+      { bridge: state.bridge, group: "codex_apps:mail" },
+    );
+    const [local, remote] = InMemoryTransport.createLinkedPair();
+    await server.connect(remote);
+    await client.connect(local);
+    const { tools } = await client.listTools();
+    expect(tools.some((tool) => tool.name === toolName("codex_apps", "gmail.get_profile"))).toBe(
+      true,
+    );
+    expect(tools.some((tool) => tool.name === toolName("codex_apps", "drive.get_profile"))).toBe(
+      false,
+    );
+    const denied = await client.callTool({
+      name: toolName("codex_apps", "drive.get_profile"),
+      arguments: {},
+    });
+    expect(denied.isError).toBe(true);
+    await client.callTool({
+      name: toolName("codex_apps", "gmail.get_profile"),
+      arguments: { link_id: "personal" },
+    });
+    expect(await Bun.file(state.logPath).text()).toContain('"tool":"gmail.get_profile"');
+  } finally {
+    await client.close();
+    await cleanup(state);
+  }
+});
 test("Codex app events and atomic config changes refresh without polling", async () => {
   const state = await setup();
   const emitter: Tool = { name: "emit_change", inputSchema: { type: "object" } };

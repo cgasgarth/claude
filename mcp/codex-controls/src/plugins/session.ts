@@ -12,15 +12,14 @@ import path from "node:path";
 import { createInterface } from "node:readline";
 import type { Interface } from "node:readline";
 import type { CallToolResult } from "@modelcontextprotocol/server";
-import { controlConfigOverrides } from "./config-scope.ts";
 import {
   approvalRequestSchema,
   approvalResultSchema,
   rpcMessageSchema,
   startedSchema,
   toolResultSchema,
-} from "./protocol.ts";
-import type { ApprovalRequest, ApprovalResult, RpcMessage } from "./protocol.ts";
+} from "../controls/protocol.ts";
+import type { ApprovalRequest, ApprovalResult, RpcMessage } from "../controls/protocol.ts";
 
 const CODEX_CLI =
   "/Applications/ChatGPT.app/Contents/Resources/codex-cli/CodexCLI.app/Contents/MacOS/codex";
@@ -37,19 +36,11 @@ interface Pending {
   method: string;
   releaseAbort?: () => void;
 }
-type InvokeRequest = Readonly<{
-  server: "cua_repl" | "node_repl";
-  code: string;
-  title: string;
-  relay: ApprovalRelay;
-  signal?: AbortSignal | undefined;
-}>;
 interface AppServerOptions {
   executable?: string;
   environment?: Readonly<NodeJS.ProcessEnv>;
   timeoutMs?: number;
   configPath?: string;
-  allPlugins?: boolean;
   onNotification?: (method: string, params: unknown) => void;
 }
 
@@ -61,17 +52,16 @@ function parseResponse(line: string): unknown {
   }
 }
 
-class CodexControlsSession {
+class CodexPluginsSession {
   private readonly options: Readonly<AppServerOptions>;
   private child: ChildProcessWithoutNullStreams | undefined;
   private lines: Interface | undefined;
   private directory: string | undefined;
   private threadId: string | undefined;
-  private operationId = randomUUID();
+  private readonly operationId = randomUUID();
   private sequence = 0;
   private activeToolRequestId: number | undefined;
   private readonly pending = new Map<number, Pending>();
-  private readonly usedServers = new Set<"cua_repl" | "node_repl">();
   private approval: ApprovalRelay | undefined;
   private active = false;
   private closed = false;
@@ -93,8 +83,6 @@ class CodexControlsSession {
   }
 
   private async startProcess(): Promise<void> {
-    const configOverrides =
-      this.options.allPlugins === true ? [] : await controlConfigOverrides(this.options.configPath);
     this.directory = await mkdtemp(path.join(tmpdir(), "claude-codex-codex-controls-"));
     if (this.closed) {
       await rm(this.directory, { recursive: true, force: true });
@@ -105,7 +93,7 @@ class CodexControlsSession {
     );
     const child = spawn(
       this.options.executable ?? CODEX_CLI,
-      ["app-server", "--listen", "stdio://", ...configOverrides],
+      ["app-server", "--listen", "stdio://"],
       {
         cwd: this.directory,
         env: environment,
@@ -142,36 +130,6 @@ class CodexControlsSession {
       await this.close();
       throw error;
     }
-  }
-
-  public async invoke(request: InvokeRequest): Promise<CallToolResult> {
-    if (request.signal?.aborted === true) {
-      throw new Error("Controls call was cancelled");
-    }
-    const onAbort = (): void => {
-      void this.close();
-    };
-    request.signal?.addEventListener("abort", onAbort, { once: true });
-    try {
-      return await this.invokeStarted(request);
-    } finally {
-      request.signal?.removeEventListener("abort", onAbort);
-    }
-  }
-
-  private async invokeStarted(request: InvokeRequest): Promise<CallToolResult> {
-    this.usedServers.add(request.server);
-    return this.callTool({
-      server: request.server,
-      tool: "js",
-      arguments: {
-        code: request.code,
-        title: request.title,
-        timeout_ms: this.options.timeoutMs ?? RPC_TIMEOUT_MS,
-      },
-      relay: request.relay,
-      signal: request.signal,
-    });
   }
 
   public async listServers(cursor?: string): Promise<unknown> {
@@ -229,18 +187,6 @@ class CodexControlsSession {
     }
   }
 
-  public async reset(): Promise<void> {
-    if (this.active) {
-      throw new Error("Cannot reset during a controls call");
-    }
-    if (this.threadId === undefined) {
-      return;
-    }
-    await this.endGroup();
-    this.operationId = randomUUID();
-    this.usedServers.clear();
-  }
-
   public async close(): Promise<void> {
     if (this.closed) {
       return;
@@ -249,7 +195,6 @@ class CodexControlsSession {
     const { child } = this;
     if (child !== undefined) {
       if (!this.active && this.threadId !== undefined) {
-        await this.endGroup().catch(() => false);
         await this.request("thread/unsubscribe", { threadId: this.threadId }).catch(() => false);
       }
       const exited = child.exitCode === null ? once(child, "exit") : Promise.resolve();
@@ -269,31 +214,6 @@ class CodexControlsSession {
     if (this.directory !== undefined) {
       await rm(this.directory, { recursive: true, force: true });
     }
-  }
-
-  private async endGroup(): Promise<void> {
-    if (this.threadId === undefined) {
-      return;
-    }
-    await Promise.all(
-      [...this.usedServers].map(async (server) => {
-        const base = { threadId: this.threadId, server };
-        await this.request("mcpServer/tool/call", {
-          ...base,
-          tool: "turn_ended",
-          arguments: {
-            hook_event_name: "turn_ended",
-            session_id: this.threadId,
-            turn_id: this.operationId,
-          },
-        }).catch(() => false);
-        await this.request("mcpServer/tool/call", {
-          ...base,
-          tool: "js_reset",
-          arguments: {},
-        }).catch(() => false);
-      }),
-    );
   }
 
   private async request(method: string, params: unknown, signal?: AbortSignal): Promise<unknown> {
@@ -462,5 +382,5 @@ class CodexControlsSession {
   }
 }
 
-export { CodexControlsSession };
+export { CodexPluginsSession };
 export type { AppServerOptions };

@@ -1,53 +1,64 @@
-/* oxlint-disable eslint/no-underscore-dangle -- _meta is an MCP wire field. */
-/* oxlint-disable eslint/no-await-in-loop -- One owned Codex session runs tool calls serially. */
-import { Client } from "@modelcontextprotocol/client";
-import { StdioClientTransport } from "@modelcontextprotocol/client/stdio";
+/* oxlint-disable eslint/no-underscore-dangle -- _meta is an upstream MCP field. */
+/* oxlint-disable eslint/no-await-in-loop -- Each MCP connection is closed before opening the next. */
+import { Client, StreamableHTTPClientTransport } from "@modelcontextprotocol/client";
 import { CallToolResultSchema } from "@modelcontextprotocol/core";
 import { z } from "zod";
+import { BRIDGE_URL, bridgeToken } from "../src/plugins/registrations.ts";
 
-const TIMEOUT_MS = 120_000;
+const inventorySchema = z.object({
+  ready: z.boolean(),
+  integrations: z.array(z.object({ id: z.string(), name: z.string(), tools: z.number() })),
+});
 const accountsSchema = z.object({
   link_accounts: z.array(z.object({ link_id: z.string(), profile_email: z.string() })),
 });
 const profileSchema = z.object({ email: z.string() });
-const client = new Client({ name: "codex-plugin-smoke", version: "1" });
-const transport = new StdioClientTransport({
-  command: Bun.which("bun") ?? "bun",
-  args: [new URL("../src/app/plugins.ts", import.meta.url).pathname],
-  stderr: "pipe",
-});
-try {
-  await client.connect(transport, { timeout: TIMEOUT_MS });
-  const inventory = await client.listTools();
-  console.log(`Discovered ${inventory.tools.length} tools through stdio MCP.`);
-  const profile = inventory.tools.find(
-    (tool) => tool.description?.includes("tool: gmail.get_profile.") === true,
-  );
-  if (profile === undefined) {
-    throw new Error("The enabled Gmail profile tool was not discovered");
-  }
-  const accounts = accountsSchema.parse(profile._meta).link_accounts;
-  for (const account of accounts) {
-    const raw = await client.callTool(
-      { name: profile.name, arguments: { link_id: account.link_id } },
-      { timeout: TIMEOUT_MS },
-    );
-    const result = CallToolResultSchema.parse(raw);
-    if (
-      result.isError === true ||
-      profileSchema.parse(result.structuredContent).email !== account.profile_email
-    ) {
-      throw new Error("Gmail profile did not match the selected account");
-    }
-  }
-  console.log(`PASS: ${accounts.length} Gmail account profiles match explicit account routing.`);
-  const refreshed = CallToolResultSchema.parse(
-    await client.callTool({ name: "refresh_plugins", arguments: {} }, { timeout: TIMEOUT_MS }),
-  );
-  if (refreshed.isError === true) {
-    throw new TypeError("Live tool refresh failed");
-  }
-  console.log("PASS: live Codex configuration reload.");
-} finally {
-  await client.close();
+const headers = { Authorization: `Bearer ${await bridgeToken()}` };
+const response = await fetch(`${BRIDGE_URL}/health`, { headers });
+const inventory = inventorySchema.parse(await response.json());
+if (!inventory.ready) {
+  throw new Error("Codex discovery is not ready");
 }
+let verifiedAccounts = 0;
+for (const group of inventory.integrations) {
+  const client = new Client({ name: "codex-integration-smoke", version: "1" });
+  const transport = new StreamableHTTPClientTransport(
+    new URL(`${BRIDGE_URL}/mcp/${encodeURIComponent(group.id)}`),
+    { requestInit: { headers } },
+  );
+  try {
+    await client.connect(transport);
+    const listed = await client.listTools();
+    if (
+      listed.tools.filter((tool) => tool.name !== "codex_status" && tool.name !== "refresh_plugins")
+        .length !== group.tools
+    ) {
+      throw new Error(`Wrong tool count for ${group.name}`);
+    }
+    const profile = listed.tools.find(
+      (tool) => tool.description?.includes("tool: gmail.get_profile.") === true,
+    );
+    const accounts = profile === undefined ? [] : accountsSchema.parse(profile._meta).link_accounts;
+    for (const account of accounts) {
+      const result = CallToolResultSchema.parse(
+        await client.callTool({
+          name: profile?.name ?? "",
+          arguments: { link_id: account.link_id },
+        }),
+      );
+      if (
+        result.isError === true ||
+        profileSchema.parse(result.structuredContent).email !== account.profile_email
+      ) {
+        throw new Error("Account routing mismatch");
+      }
+      verifiedAccounts += 1;
+    }
+    await transport.terminateSession();
+  } finally {
+    await client.close();
+  }
+}
+console.log(
+  `PASS: ${inventory.integrations.length} separate MCP entries; ${verifiedAccounts} account profiles verified.`,
+);
