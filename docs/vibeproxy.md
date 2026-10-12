@@ -23,10 +23,10 @@ sets the custom GPT context size; their `modelSettings` entries set the matching
 auto-compaction window. Claude models use their normal default windows.
 
 Claude Code handles automatic compaction and `/compact`. GPT models use the
-[native compaction plugin](https://github.com/cgasgarth/codex/tree/main/native-compaction-plugin);
+[native compaction plugin](https://github.com/cgasgarth/clodex/tree/main/plugins/native-compaction);
 Claude models use CPA's built-in behavior. The plugin is installed at
 `~/.cli-proxy-api/plugins/darwin/arm64/cpa-native-compaction-v0.1.2.dylib`.
-Its source is in `~/.codex/native-compaction-plugin/`.
+Its source is in `~/Documents/Projects/clodex/plugins/native-compaction/`.
 Keep `~/.cli-proxy-api/native-compaction/`: these private checkpoints are needed
 to resume compacted GPT chats with their original model and credential.
 
