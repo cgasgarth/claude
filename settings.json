@@ -8,7 +8,6 @@
     "ENABLE_TOOL_SEARCH": "true",
     "CLAUDE_CODE_TETHER_LIVE": "0",
     "ANTHROPIC_BASE_URL": "http://127.0.0.1:8318",
-    "ANTHROPIC_API_KEY": "vibeproxy",
     "NO_PROXY": "127.0.0.1,localhost",
     "CLAUDE_CODE_MODEL_CAPABILITIES": "gpt-6-luna=fast_mode;gpt-6.1-sol=fast_mode;gpt-6-astra=fast_mode",
     "CLAUDE_CODE_SKIP_FAST_MODE_ORG_CHECK": "1"

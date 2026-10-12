@@ -4,10 +4,10 @@ Claude Code connects directly to VibeProxy at `http://127.0.0.1:8318`.
 VibeProxy selects its saved Claude or ChatGPT credential for the selected model.
 Keep VibeProxy running before starting Claude Code.
 
-[settings.json](../settings.json) sets the endpoint, a local placeholder API key,
-the model windows, and the model picker. Opus 5.5 is the default.
-The proxy currently requires no client API key; replace the placeholder if
-client authentication is enabled. Start a new Claude session after config changes.
+[settings.json](../settings.json) sets the endpoint, model windows, and model
+picker. Opus 5.5 is the default. No gateway API key is set: the saved Claude.ai
+login stays active, so cloud connectors remain available. VibeProxy selects
+its own saved upstream credentials. Start a new Claude session after changes.
 
 ```sh
 claude                           # Opus 5.5
@@ -44,8 +44,7 @@ session. VibeProxy translates Claude's `speed: fast` to OpenAI's
 `CLAUDE_CODE_MODEL_CAPABILITIES` adds `fast_mode` for the three GPT model IDs.
 This flag is supported by the installed CLI but is not in the public docs.
 `CLAUDE_CODE_SKIP_FAST_MODE_ORG_CHECK=1` skips the Anthropic availability check
-that cannot validate VibeProxy's local credential. Upstream requests still
-must be accepted by the provider. No binary patch or forced request tier is used.
+for GPT models. Upstream requests still must be accepted by the provider. No binary patch or forced request tier is used.
 Claude's `/fast` price label uses its own estimates; it is not GPT pricing.
 
 ## Computer controls
