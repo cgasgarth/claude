@@ -10,7 +10,7 @@ Personal Claude Code configuration for `cgasgarth`.
 ├── settings.local.json       Local Claude settings
 ├── claude.md                 Global instructions
 ├── docs/
-│   └── clodex.md             Model routing setup
+│   └── vibeproxy.md             Model routing setup
 ├── hooks/                   Claude lifecycle hooks
 ├── scripts/
 │   └── statusline.sh         Status-line renderer
@@ -34,7 +34,7 @@ dependencies, setup scripts, and documentation.
 ## Setup guides
 
 - [Codex controls and dynamic plugin tools](mcp/codex-controls/README.md)
-- [Clodex model routing](docs/clodex.md)
+- [VibeProxy model routing](docs/vibeproxy.md)
 
 ## Git boundaries
 
