@@ -5,7 +5,7 @@ VibeProxy selects its saved Claude or ChatGPT credential for the selected model.
 Keep VibeProxy running before starting Claude Code.
 
 [settings.json](../settings.json) sets the endpoint, a local placeholder API key,
-the 350k auto-compaction window, and the model picker. Opus 5.5 is the default.
+the model windows, and the model picker. Opus 5.5 is the default.
 The proxy currently requires no client API key; replace the placeholder if
 client authentication is enabled. Start a new Claude session after config changes.
 
@@ -17,9 +17,10 @@ claude --model gpt-6-astra
 claude --model gpt-6-luna
 ```
 
-`autoCompactWindow: 350000` applies to all models. The environment context limit
-also tells Claude Code that custom GPT models have a 350k window. Known Claude
-models can still display their native 1M capacity, but auto-compaction uses 350k.
+Codex models (`gpt-6-luna`, `gpt-6.1-sol`, and `gpt-6-astra`) use a 900k
+context and auto-compaction window. `CLAUDE_CODE_MAX_CONTEXT_TOKENS=900000`
+sets the custom GPT context size; their `modelSettings` entries set the matching
+auto-compaction window. Claude models use their normal default windows.
 
 Claude Code handles automatic compaction and `/compact`. GPT models use the
 [native compaction plugin](https://github.com/cgasgarth/codex/tree/main/native-compaction-plugin);
@@ -32,6 +33,20 @@ to resume compacted GPT chats with their original model and credential.
 Clodex is no longer part of Claude's request path. Its startup hook, HTTPS proxy,
 and local CA settings are removed. Existing Clodex files and services are retained.
 Do not set `CLAUDE_CODE_EFFORT_LEVEL` if you want to change effort with `/effort`.
+
+## Fast mode
+
+Use `/fast on` and `/fast off` with Luna, Sol, or Astra. Each session starts with
+fast mode off (`fastModePerSessionOptIn: true`); the command toggles it for that
+session. VibeProxy translates Claude's `speed: fast` to OpenAI's
+`service_tier: priority`.
+
+`CLAUDE_CODE_MODEL_CAPABILITIES` adds `fast_mode` for the three GPT model IDs.
+This flag is supported by the installed CLI but is not in the public docs.
+`CLAUDE_CODE_SKIP_FAST_MODE_ORG_CHECK=1` skips the Anthropic availability check
+that cannot validate VibeProxy's local credential. Upstream requests still
+must be accepted by the provider. No binary patch or forced request tier is used.
+Claude's `/fast` price label uses its own estimates; it is not GPT pricing.
 
 ## Computer controls
 
