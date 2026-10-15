@@ -17,13 +17,13 @@
   },
   "permissions": {
     "allow": [],
-    "defaultMode": "bypassPermissions",
-    "skipDangerousModePermissionPrompt": true,
     "deny": [
       "mcp__computer-use__*",
       "mcp__claude-in-chrome__*",
       "mcp__playwright__*"
-    ]
+    ],
+    "defaultMode": "bypassPermissions",
+    "skipDangerousModePermissionPrompt": true
   },
   "model": "claude-opus-5-5",
   "modelPicker": {
@@ -107,10 +107,22 @@
       "autoCompactWindow": 900000
     }
   },
+  "fastModePerSessionOptIn": true,
   "promptSuggestionEnabled": false,
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
-  "theme": "dark",
-  "fastModePerSessionOptIn": true
+  "theme": "light",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "for d in \"$HOME\"/.agents/skills/*/; do n=$(basename \"$d\"); [ -e \"$HOME/.claude/skills/$n\" ] || ln -s \"${d%/}\" \"$HOME/.claude/skills/$n\"; done; find \"$HOME/.claude/skills\" -maxdepth 1 -type l ! -exec test -e {} \\; -delete 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  }
 }

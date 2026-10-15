@@ -49,7 +49,9 @@ Claude's `/fast` price label uses its own estimates; it is not GPT pricing.
 
 ## Computer controls
 
-The standalone MCP package in this repository provides `computer` and `chrome`.
+The standalone MCP package provides OpenAI’s `cua_repl` for desktop and Chrome
+controls, plus `codex` for connected app tools. It does not need trycua/cua,
+CuaDriver, or Cua Spaces.
 Its approval mode is configured in
 [permissions.json](../mcp/codex-controls/permissions.json). The tracked Claude
 settings deny the old built-in computer-use, Claude Chrome, and Playwright tool

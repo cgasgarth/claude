@@ -751,12 +751,30 @@
       },
       {
         "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/spicy-jingling-flurry",
         "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
         "version": "1.0.2",
         "installedAt": "2026-09-04T22:25:15.010Z",
         "lastUpdated": "2026-09-04T22:25:15.010Z",
-        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef",
-        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/spicy-jingling-flurry"
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/dreamy-scribbling-truffle",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-09-30T04:52:35.398Z",
+        "lastUpdated": "2026-09-30T04:52:35.398Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/polymorphic-bouncing-pine",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-09-30T05:13:51.465Z",
+        "lastUpdated": "2026-09-30T05:13:51.465Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
       }
     ],
     "aws-core@claude-plugins-official": [

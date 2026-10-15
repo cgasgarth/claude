@@ -21,7 +21,7 @@ Personal Claude Code configuration for `cgasgarth`.
 │       ├── package.json     Dependencies and commands
 │       ├── bun.lock         Dependency lockfile
 │       ├── scripts/         MCP registration
-│       ├── src/             Control tools and dynamic Codex tool bridge
+│       ├── src/             Direct OpenAI controls and Codex app tool bridge
 │       └── tests/           Tests and fixtures
 ├── plugins/                 Plugin and marketplace declarations
 └── skills/                  User skills

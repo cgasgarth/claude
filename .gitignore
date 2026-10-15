@@ -53,3 +53,6 @@ plugins/*
 **/projects/
 **/history.jsonl
 **/node_modules/
+
+# Anthropic-synced skills are downloaded and regenerated.
+skills/synced/
