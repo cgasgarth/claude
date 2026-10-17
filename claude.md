@@ -12,10 +12,16 @@
 - Keep routine command, script, and validation output concise.
 - Prefer compact summaries on success and bounded, actionable excerpts on failure.
 - Keep responses information-dense and avoid unnecessary repetition.
-- Prefer `rg` for searching files and text.
 - Use focused CLI tools when appropriate, including `ast-grep` (`sg`), `git`, `gh`, `bun`, and `bunx`.
 - Do not use python for inline scripts, use bun. Only use python unless the task absolutely requires it
 - When several independent checks are needed, batch them where practical rather than running them serially.
+
+## File search
+
+- Use the `fff` MCP server for file name, path, and content searches in the current repository or worktree.
+- Use `find_files` for names and paths, `grep` for content, and `multi_grep` for several literal terms in one call. These are tools from the `fff` server.
+- Start each session in the repository or worktree that must be searched. `fff` indexes its startup directory.
+- Use short queries and directory or glob constraints. Keep results small, then read the matching files.
 
 ## Engineering Principles
 
