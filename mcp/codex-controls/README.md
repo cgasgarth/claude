@@ -34,7 +34,8 @@ It uses that manifest's command, arguments, and environment. Reconnect `cua_repl
 after a desktop app update to use the current cached runtime.
 
 Claude calls the upstream `js` and `js_reset` tools directly. The `js` description
-adds a short Chrome discovery note, including the distinction from Cua Spaces.
+adds Mac and signed-in Chrome guidance, with the distinction from cua-driver
+and Cua Spaces, without labeling the tool as Codex.
 Upstream descriptions, API documentation, initialization instructions, images,
 errors, and cancellation messages are preserved. No Codex app-server or Codex model
 turn is used for these controls.

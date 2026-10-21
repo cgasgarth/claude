@@ -8,8 +8,10 @@ import { automaticApproval } from "./permissions.ts";
 import type { PermissionSettings } from "./permissions.ts";
 
 const CLEANUP_TIMEOUT_MS = 2000;
-const CHROME_DESCRIPTION =
-  "Chrome control is included in cua_repl through OpenAI's Chrome extension; there is no separate Chrome MCP entry. Use cua.getState() to discover connected browsers and tabs. Existing Chrome tabs use your current browser profile and sign-ins. The separate cua MCP server is Cua Spaces.\n\n";
+const CUA_DESCRIPTION =
+  "Control this Mac and your signed-in Chrome browser. Read screens, click, type, take screenshots, and work with existing Chrome tabs.\n\n" +
+  "Use the cua JavaScript API inside this REPL. This is separate from cua-driver and Cua Spaces; their CLI commands, SDKs, and instructions do not apply here.\n\n" +
+  "Start with await cua.getState() to discover available apps, browsers, and tabs. Read the returned API documentation before continuing.\n\n";
 
 class CuaProxy {
   private readonly sessionId = randomUUID();
@@ -112,7 +114,7 @@ class CuaProxy {
       if (list.success) {
         for (const tool of list.data.tools) {
           if (tool.name === "js") {
-            tool.description = CHROME_DESCRIPTION + (tool.description ?? "");
+            tool.description = CUA_DESCRIPTION + (tool.description ?? "");
           }
         }
         outgoing = {
