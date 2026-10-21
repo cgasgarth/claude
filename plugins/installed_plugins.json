@@ -10,25 +10,9 @@
         "installedAt": "2026-07-26T19:12:02.345Z",
         "lastUpdated": "2026-07-26T19:12:02.345Z",
         "gitCommitSha": "3a5524044010495c5dff41a929abdbe7d319607b"
-      },
-      {
-        "scope": "user",
-        "installPath": "/Users/cgas/.claude/plugins/cache/claude-plugins-official/rust-analyzer-lsp/1.0.0",
-        "version": "1.0.0",
-        "installedAt": "2026-07-26T19:31:36.988Z",
-        "lastUpdated": "2026-07-26T19:31:36.988Z",
-        "gitCommitSha": "6e51ac4a081ee75c725d171927f53250e8740aab"
       }
     ],
     "typescript-native-lsp@native-typescript-lsp": [
-      {
-        "scope": "user",
-        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
-        "version": "1.0.2",
-        "installedAt": "2026-08-13T23:48:20.762Z",
-        "lastUpdated": "2026-08-27T06:18:56.831Z",
-        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
-      },
       {
         "scope": "local",
         "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/peaceful-sprouting-comet",
@@ -775,6 +759,42 @@
         "installedAt": "2026-09-30T05:13:51.465Z",
         "lastUpdated": "2026-09-30T05:13:51.465Z",
         "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/cheerful-frolicking-codd",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-10-20T00:27:49.949Z",
+        "lastUpdated": "2026-10-20T00:27:49.949Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/abundant-discovering-nautilus",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-10-20T04:44:38.805Z",
+        "lastUpdated": "2026-10-20T04:44:38.805Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/luminous-pondering-raccoon",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-10-20T19:52:47.723Z",
+        "lastUpdated": "2026-10-20T19:52:47.723Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef"
+      },
+      {
+        "scope": "local",
+        "installPath": "/Users/cgas/.claude/plugins/cache/native-typescript-lsp/typescript-native-lsp/1.0.2",
+        "version": "1.0.2",
+        "installedAt": "2026-10-20T20:13:09.473Z",
+        "lastUpdated": "2026-10-20T20:13:09.473Z",
+        "gitCommitSha": "e02e15bbc8460b1f33bd962455448d8f3c0defef",
+        "projectPath": "/Users/cgas/Documents/Projects/Atelier/.claude/worktrees/enchanted-gathering-hamster"
       }
     ],
     "aws-core@claude-plugins-official": [

@@ -64,6 +64,18 @@
   "skillOverrides": {
     "claude-api": "off"
   },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "for d in \"$HOME\"/.agents/skills/*/; do n=$(basename \"$d\"); [ -e \"$HOME/.claude/skills/$n\" ] || ln -s \"${d%/}\" \"$HOME/.claude/skills/$n\"; done; find \"$HOME/.claude/skills\" -maxdepth 1 -type l ! -exec test -e {} \\; -delete 2>/dev/null || true"
+          }
+        ]
+      }
+    ]
+  },
   "worktree": {
     "symlinkDirectories": [],
     "baseRef": "fresh"
@@ -72,10 +84,7 @@
     "type": "command",
     "command": "~/.claude/scripts/statusline.sh"
   },
-  "enabledPlugins": {
-    "rust-analyzer-lsp@claude-plugins-official": true,
-    "typescript-native-lsp@native-typescript-lsp": true
-  },
+  "enabledPlugins": {},
   "extraKnownMarketplaces": {
     "native-typescript-lsp": {
       "source": {
@@ -107,22 +116,12 @@
       "autoCompactWindow": 900000
     }
   },
+  "fastMode": true,
   "fastModePerSessionOptIn": true,
   "promptSuggestionEnabled": false,
   "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "skipDangerousModePermissionPrompt": true,
   "theme": "light",
-  "hooks": {
-    "SessionStart": [
-      {
-        "hooks": [
-          {
-            "type": "command",
-            "command": "for d in \"$HOME\"/.agents/skills/*/; do n=$(basename \"$d\"); [ -e \"$HOME/.claude/skills/$n\" ] || ln -s \"${d%/}\" \"$HOME/.claude/skills/$n\"; done; find \"$HOME/.claude/skills\" -maxdepth 1 -type l ! -exec test -e {} \\; -delete 2>/dev/null || true"
-          }
-        ]
-      }
-    ]
-  }
+  "outputStyle": "STE100"
 }
