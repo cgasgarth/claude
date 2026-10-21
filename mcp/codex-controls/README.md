@@ -33,9 +33,10 @@ The proxy loads the newest cached `unified-computer-use/.mcp.json` when it start
 It uses that manifest's command, arguments, and environment. Reconnect `cua_repl`
 after a desktop app update to use the current cached runtime.
 
-Claude calls the upstream `js` and `js_reset` tools directly. Tool descriptions,
-API documentation, initialization instructions, images, errors, and cancellation
-messages pass through without translation. No Codex app-server or Codex model
+Claude calls the upstream `js` and `js_reset` tools directly. The `js` description
+adds a short Chrome discovery note, including the distinction from Cua Spaces.
+Upstream descriptions, API documentation, initialization instructions, images,
+errors, and cancellation messages are preserved. No Codex app-server or Codex model
 turn is used for these controls.
 
 A plain Claude registration does not supply the session and turn metadata that

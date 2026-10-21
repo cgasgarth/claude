@@ -3,10 +3,13 @@
 /* oxlint-disable eslint/no-underscore-dangle -- _meta is an MCP wire field. */
 import { randomUUID } from "node:crypto";
 import type { JSONRPCMessage, Transport } from "@modelcontextprotocol/client";
+import { ListToolsResultSchema } from "@modelcontextprotocol/core";
 import { automaticApproval } from "./permissions.ts";
 import type { PermissionSettings } from "./permissions.ts";
 
 const CLEANUP_TIMEOUT_MS = 2000;
+const CHROME_DESCRIPTION =
+  "Chrome control is included in cua_repl through OpenAI's Chrome extension; there is no separate Chrome MCP entry. Use cua.getState() to discover connected browsers and tabs. Existing Chrome tabs use your current browser profile and sign-ins. The separate cua MCP server is Cua Spaces.\n\n";
 
 class CuaProxy {
   private readonly sessionId = randomUUID();
@@ -103,7 +106,25 @@ class CuaProxy {
       await this.upstream.send({ jsonrpc: "2.0", id: message.id, result: saved });
       return;
     }
-    await this.downstream.send(message);
+    let outgoing = message;
+    if ("result" in message) {
+      const list = ListToolsResultSchema.safeParse(message.result);
+      if (list.success) {
+        for (const tool of list.data.tools) {
+          if (tool.name === "js") {
+            tool.description = CHROME_DESCRIPTION + (tool.description ?? "");
+          }
+        }
+        outgoing = {
+          ...message,
+          result: {
+            ...message.result,
+            tools: list.data.tools,
+          },
+        };
+      }
+    }
+    await this.downstream.send(outgoing);
   }
 
   public close(): void {
