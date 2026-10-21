@@ -28,6 +28,8 @@
 !hooks/**
 !mcp/
 !mcp/**
+!output-styles/
+!output-styles/**
 
 # Keep plugin selections and marketplace declarations, not downloaded code,
 # caches, usage data, or marketplace clones.
