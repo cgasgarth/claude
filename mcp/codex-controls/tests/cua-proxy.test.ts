@@ -126,3 +126,75 @@ test("closing Claude releases the runtime's current operation", async () => {
     await state.runtime.send({ jsonrpc: "2.0", id: cleanup.id, result: { content: [] } });
   }
 });
+
+test("cleanup tool is model-visible and accepts empty arguments", async () => {
+  const state = await setup();
+  try {
+    await state.runtime.send({
+      jsonrpc: "2.0",
+      id: "list",
+      result: {
+        tools: [
+          {
+            name: "turn_ended",
+            inputSchema: { type: "object", required: ["session_id"] },
+            _meta: { ui: { visibility: [] } },
+          },
+        ],
+      },
+    });
+    expect(state.responses[0]).toMatchObject({
+      result: {
+        tools: [
+          {
+            name: "turn_ended",
+            inputSchema: { type: "object", properties: {}, additionalProperties: false },
+            _meta: { ui: { visibility: ["model"] } },
+          },
+        ],
+      },
+    });
+  } finally {
+    await state.runtime.close();
+  }
+});
+
+test("cancellation releases the call's operation after its response", async () => {
+  const state = await setup();
+  try {
+    await state.client.send(call("run", "js"));
+    await state.client.send({
+      jsonrpc: "2.0",
+      method: "notifications/cancelled",
+      params: { requestId: "run" },
+    });
+    expect(
+      state.requests.map((message) => ("method" in message ? message.method : undefined)),
+    ).toEqual(["tools/call", "notifications/cancelled"]);
+    await state.runtime.send({
+      jsonrpc: "2.0",
+      id: "run",
+      error: { code: -32_800, message: "Cancelled" },
+    });
+    await Bun.sleep(0);
+    const release = state.requests.at(-1);
+    expect(release).toMatchObject({
+      method: "tools/call",
+      params: { name: "turn_ended", arguments: { hook_event_name: "Stop" } },
+    });
+    if (release !== undefined && "id" in release && release.id !== undefined) {
+      await state.runtime.send({ jsonrpc: "2.0", id: release.id, result: { content: [] } });
+    }
+    expect(state.responses).toHaveLength(1);
+    await state.client.send(call("next", "js"));
+    const original = state.requests.at(0);
+    const next = state.requests.at(-1);
+    if (original !== undefined && next !== undefined && "params" in original && "params" in next) {
+      expect(next.params?._meta?.["x-codex-turn-metadata"]).not.toBe(
+        original.params?._meta?.["x-codex-turn-metadata"],
+      );
+    }
+  } finally {
+    await state.runtime.close();
+  }
+});

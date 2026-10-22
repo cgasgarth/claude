@@ -44,8 +44,10 @@ A plain Claude registration does not supply the session and turn metadata that
 OpenAI's browser runtime requires. The small proxy adds those IDs, keeps them
 stable during an operation, and releases the operation when its MCP connection
 ends. Calling `turn_ended` releases the current operation; the proxy supplies its
-own IDs, so empty arguments are sufficient for that call. JavaScript state stays
-available until `js_reset` or disconnection.
+own IDs and exposes an empty input schema. Claude is instructed to call it with
+`{}` when the task finishes, including after errors. Cancelled REPL calls also
+release their operation after the runtime responds. No Claude Stop hook is used.
+JavaScript state stays available until `js_reset` or disconnection.
 
 On the first `js` call, use exactly one runtime entry point and read the returned
 API documentation before continuing:

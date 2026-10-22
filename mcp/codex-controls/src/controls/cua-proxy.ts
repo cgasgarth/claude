@@ -11,7 +11,30 @@ const CLEANUP_TIMEOUT_MS = 2000;
 const CUA_DESCRIPTION =
   "Control this Mac and your signed-in Chrome browser. Read screens, click, type, take screenshots, and work with existing Chrome tabs.\n\n" +
   "Use the cua JavaScript API inside this REPL. This is separate from cua-driver and Cua Spaces; their CLI commands, SDKs, and instructions do not apply here.\n\n" +
-  "Start with await cua.getState() to discover available apps, browsers, and tabs. Read the returned API documentation before continuing.\n\n";
+  "Start with await cua.getState() to discover available apps, browsers, and tabs. Read the returned API documentation before continuing.\n\n" +
+  "When the computer or browser task finishes, including after an error, call turn_ended with {} before your final answer to release the cursor overlay and active operation.\n\n";
+
+function withToolDescriptions(message: JSONRPCMessage): JSONRPCMessage {
+  if (!("result" in message)) {
+    return message;
+  }
+  const list = ListToolsResultSchema.safeParse(message.result);
+  if (!list.success) {
+    return message;
+  }
+  for (const tool of list.data.tools) {
+    if (tool.name === "js") {
+      tool.description = CUA_DESCRIPTION + (tool.description ?? "");
+    }
+    if (tool.name === "turn_ended") {
+      tool.description =
+        "Finish computer use and release the cursor overlay and active operation. Call with {} when the task finishes, including after an error, before your final answer. This does not close your apps or reset JavaScript bindings.";
+      tool.inputSchema = { type: "object", properties: {}, additionalProperties: false };
+      tool._meta = { ...tool._meta, ui: { visibility: ["model"] } };
+    }
+  }
+  return { ...message, result: { ...message.result, tools: list.data.tools } };
+}
 
 class CuaProxy {
   private readonly sessionId = randomUUID();
@@ -19,6 +42,11 @@ class CuaProxy {
   private readonly cleanupId = `claude-cua-cleanup-${randomUUID()}`;
   private closing = false;
   private cleanupTimer: ReturnType<typeof setTimeout> | undefined;
+  private readonly pendingCalls = new Map<
+    string | number,
+    { turnId: string; cancelled: boolean }
+  >();
+  private readonly releaseRequests = new Set<string>();
   private readonly downstream: Transport;
   private readonly upstream: Transport;
   private readonly permissions: Readonly<PermissionSettings>;
@@ -54,6 +82,22 @@ class CuaProxy {
 
   private async forward(message: JSONRPCMessage): Promise<void> {
     try {
+      if (
+        "method" in message &&
+        "id" in message &&
+        message.method === "tools/call" &&
+        message.params?.["name"] === "js"
+      ) {
+        this.pendingCalls.set(message.id, { turnId: this.turnId, cancelled: false });
+      }
+      if ("method" in message && message.method === "notifications/cancelled") {
+        const id = message.params?.["requestId"];
+        const pending =
+          typeof id === "string" || typeof id === "number" ? this.pendingCalls.get(id) : undefined;
+        if (pending !== undefined) {
+          pending.cancelled = true;
+        }
+      }
       await this.upstream.send(this.withMetadata(message));
     } catch {
       this.close();
@@ -92,6 +136,13 @@ class CuaProxy {
   }
 
   private async receive(message: JSONRPCMessage): Promise<void> {
+    if (
+      "id" in message &&
+      typeof message.id === "string" &&
+      this.releaseRequests.delete(message.id)
+    ) {
+      return;
+    }
     if ("id" in message && message.id === this.cleanupId && !("method" in message)) {
       clearTimeout(this.cleanupTimer);
       await this.upstream.close();
@@ -108,25 +159,31 @@ class CuaProxy {
       await this.upstream.send({ jsonrpc: "2.0", id: message.id, result: saved });
       return;
     }
-    let outgoing = message;
-    if ("result" in message) {
-      const list = ListToolsResultSchema.safeParse(message.result);
-      if (list.success) {
-        for (const tool of list.data.tools) {
-          if (tool.name === "js") {
-            tool.description = CUA_DESCRIPTION + (tool.description ?? "");
-          }
-        }
-        outgoing = {
-          ...message,
-          result: {
-            ...message.result,
-            tools: list.data.tools,
-          },
-        };
+    await this.downstream.send(withToolDescriptions(message));
+    if ("id" in message && !("method" in message) && message.id !== undefined) {
+      const pending = this.pendingCalls.get(message.id);
+      this.pendingCalls.delete(message.id);
+      if (pending?.cancelled === true && !this.closing) {
+        await this.releaseTurn(pending.turnId);
       }
     }
-    await this.downstream.send(outgoing);
+  }
+
+  private async releaseTurn(turnId: string): Promise<void> {
+    const id = `claude-cua-release-${randomUUID()}`;
+    this.releaseRequests.add(id);
+    await this.upstream.send({
+      jsonrpc: "2.0",
+      id,
+      method: "tools/call",
+      params: {
+        name: "turn_ended",
+        arguments: { hook_event_name: "Stop", session_id: this.sessionId, turn_id: turnId },
+      },
+    });
+    if (this.turnId === turnId) {
+      this.turnId = randomUUID();
+    }
   }
 
   public close(): void {
